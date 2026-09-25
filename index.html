@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Pattern Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f2ea; --panel:#fffdf9; --ink:#2f2a25; --muted:#7a7066; --line:#e6ddd0;
+  --accent:#b5654a; --accent-ink:#fff; --accent-soft:#f3e1d8;
+  --knit:#6f8f72; --crochet:#8a6fa6; --sewing:#4f7ea3; --other:#9a8a6a;
+  --radius:14px; --shadow:0 1px 2px rgba(60,40,20,.06),0 4px 16px rgba(60,40,20,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.btn{border:1px solid var(--line);background:var(--panel);padding:9px 16px;border-radius:999px;font-weight:500}
+.btn:hover{border-color:#cdbfae}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(.95)}
+.btn.danger{color:#a33b2b;border-color:#e8c4bc}
+.btn.small{padding:5px 12px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+input[type=text],input[type=password],input[type=search],input[type=url],select,textarea{
+  width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:4px}
+.err{color:#a33b2b;font-size:14px;min-height:20px;margin-top:8px}
+
+/* Lock + setup */
+.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.gate-card{background:var(--panel);border-radius:20px;box-shadow:var(--shadow);padding:32px 28px;width:100%;max-width:400px}
+.gate-card h1{font-size:28px;margin-bottom:6px}
+.gate-card p{color:var(--muted);margin:0 0 20px}
+.gate-card .field{margin-bottom:14px}
+.gate-card .btn{width:100%;padding:11px}
+.check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);margin:4px 0 16px}
+.check input{width:16px;height:16px;accent-color:var(--accent)}
+.yarn{font-size:34px;margin-bottom:6px}
+
+/* App shell */
+header.top{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-inner{max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-family:Fraunces,Georgia,serif;font-size:22px;font-weight:600;white-space:nowrap;margin-right:auto}
+.search{flex:1 1 260px;order:3;min-width:0}
+.top-actions{display:flex;gap:8px}
+@media(max-width:520px){.wide-only{display:none}.brand{font-size:19px}.top-actions .btn{padding:7px 12px}}
+@media(min-width:760px){.search{order:0;max-width:420px}.brand{margin-right:0}.top-actions{margin-left:auto}}
+.filters{max-width:1200px;margin:0 auto;padding:12px 16px 4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);background:var(--panel);padding:6px 14px;border-radius:999px;font-size:14px}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters select{width:auto;padding:6px 10px;border-radius:999px;font-size:14px;background:var(--panel)}
+.count{color:var(--muted);font-size:14px;max-width:1200px;margin:0 auto;padding:4px 16px}
+main{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{background:var(--panel);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;text-align:left;border:0;padding:0;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-1px)}
+.thumb{aspect-ratio:4/5;background:#efe7db;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .ph{font-size:40px;opacity:.55}
+.card-body{padding:10px 12px 12px}
+.card-title{font-weight:600;line-height:1.3;margin-bottom:2px}
+.card-sub{color:var(--muted);font-size:13px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:#eee6da;color:var(--ink)}
+.badge.knit{background:#e2ebe2;color:#3d5c40}.badge.crochet{background:#ebe3f2;color:#5b4176}
+.badge.sewing{background:#dfe9f2;color:#2f5779}.badge.other{background:#eee7d8;color:#6b5d3f}
+.badge.made{background:var(--accent-soft);color:#8a4631}
+.made-flag{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.92);border-radius:999px;font-size:12px;font-weight:600;padding:2px 8px;color:#8a4631}
+.empty{text-align:center;color:var(--muted);padding:80px 16px}
+.empty h2{color:var(--ink);margin-bottom:8px}
+
+/* Modals */
+.overlay{position:fixed;inset:0;background:rgba(40,30,20,.45);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+.modal{background:var(--panel);border-radius:20px;width:100%;max-width:760px;box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative}
+.modal.narrow{max-width:440px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.modal-head h2{font-size:22px}
+.modal-body{padding:20px}
+.modal-foot{display:flex;gap:8px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.x{border:0;background:none;font-size:26px;line-height:1;color:var(--muted);padding:4px 8px}
+@media(max-width:600px){.overlay{padding:0}.modal{border-radius:0;min-height:100%}}
+
+.detail-top{display:grid;grid-template-columns:220px 1fr;gap:20px}
+@media(max-width:600px){.detail-top{grid-template-columns:1fr}}
+.detail-cover{border-radius:12px;overflow:hidden;background:#efe7db;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center}
+.detail-cover img{width:100%;height:100%;object-fit:cover}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;align-content:start}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;word-break:break-word}
+.section{margin-top:22px}
+.section h3{font-size:17px;margin-bottom:10px}
+.notes{white-space:pre-wrap;background:#faf6ef;border-radius:10px;padding:12px 14px}
+.filerow{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff}
+.filerow .fname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filerow .fsize{color:var(--muted);font-size:13px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.photo{position:relative;border-radius:10px;overflow:hidden;background:#efe7db;aspect-ratio:1;cursor:pointer;border:0;padding:0}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:12px;padding:14px 8px 6px;text-align:left}
+.tag{display:inline-block;background:#f0e9de;border-radius:999px;padding:2px 10px;font-size:13px;margin:0 6px 6px 0;border:0;cursor:pointer}
+
+/* Editor */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:14px;margin:18px 0 0}
+legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-size:16px}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--muted);font-size:14px;cursor:pointer;background:#fff}
+.drop:hover{border-color:var(--accent)}
+.edit-list{margin-top:10px}
+.edit-photo{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.edit-photo img,.edit-photo .ph{width:56px;height:56px;border-radius:8px;object-fit:cover;background:#efe7db;flex:none}
+.edit-photo input{flex:1}
+.cover-prev{display:flex;gap:12px;align-items:center}
+.cover-prev img{width:72px;height:90px;border-radius:8px;object-fit:cover;background:#efe7db}
+.hint{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* Busy + toast + lightbox */
+.busy{position:fixed;inset:0;background:rgba(247,242,234,.85);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-weight:500}
+.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;z-index:120;font-size:14px;max-width:90vw;text-align:center}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:110;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.lightbox img{max-width:100%;max-height:85vh;border-radius:6px}
+.lightbox .cap{color:#fff;margin-top:10px;text-align:center}
+.lightbox .x{position:absolute;top:10px;right:14px;color:#fff}
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div id="boot" class="gate"><div class="spinner"></div></div>
+
+<!-- Lock screen -->
+<div id="lock" class="gate hidden">
+  <form class="gate-card" id="lockForm" autocomplete="on">
+    <div class="yarn">&#x1F9F6;</div>
+    <h1>Pattern Library</h1>
+    <p>Enter the library password to open your patterns.</p>
+    <input type="text" name="username" value="pattern-library" autocomplete="username" class="hidden" aria-hidden="true">
+    <div class="field"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required></div>
+    <label class="check"><input type="checkbox" id="remember"> Keep me signed in on this device</label>
+    <button class="btn primary" id="unlockBtn">Open library</button>
+    <div class="err" id="lockErr"></div>
+  </form>
+</div>
+
+<!-- First-time setup -->
+<div id="setup" class="gate hidden">
+  <form class="gate-card" id="setupForm">
+    <div class="yarn">&#x1F9F6;</div>
+    <h1>Set up your library</h1>
+    <p>This only happens once. Pick the password you and your sister will share. A short phrase of a few words is safest (for example: purple-yarn-tuesday-hats). Everything is locked with it, so write it down somewhere safe: it cannot be recovered.</p>
+    <div class="field"><label for="spw">Library password</label><input id="spw" type="password" autocomplete="new-password" minlength="10" required></div>
+    <div class="field"><label for="spw2">Type it again</label><input id="spw2" type="password" autocomplete="new-password" required></div>
+    <div class="field"><label for="stoken">GitHub key</label><input id="stoken" type="password" placeholder="github_pat_..." required>
+      <div class="hint">Lets the library save files. It is stored locked with the password, so your sister will not need her own.</div></div>
+    <button class="btn primary" id="setupBtn">Create library</button>
+    <div class="err" id="setupErr"></div>
+  </form>
+</div>
+
+<!-- App -->
+<div id="app" class="hidden">
+  <header class="top"><div class="top-inner">
+    <div class="brand">Pattern Library</div>
+    <input type="search" class="search" id="q" placeholder="Search name, designer, tag, yarn, notes...">
+    <div class="top-actions">
+      <button class="btn primary" id="addBtn">+ Add<span class="wide-only"> pattern</span></button>
+      <button class="btn" id="settingsBtn" title="Settings">Settings</button>
+    </div>
+  </div></header>
+  <div class="filters" id="filters">
+    <button class="chip on" data-craft="">All</button>
+    <button class="chip" data-craft="Knit">Knit</button>
+    <button class="chip" data-craft="Crochet">Crochet</button>
+    <button class="chip" data-craft="Sewing">Sewing</button>
+    <button class="chip" data-craft="Other">Other</button>
+    <select id="fCat" aria-label="Category"><option value="">Any category</option></select>
+    <select id="fStatus" aria-label="Status"><option value="">Any status</option></select>
+    <select id="fDesigner" aria-label="Designer"><option value="">Any designer</option></select>
+    <select id="fSort" aria-label="Sort">
+      <option value="new">Newest first</option><option value="az">A to Z</option><option value="designer">By designer</option>
+    </select>
+  </div>
+  <div class="count" id="count"></div>
+  <main><div class="grid" id="grid"></div><div class="empty hidden" id="empty"></div></main>
+</div>
+
+<div id="modalRoot"></div>
+
+<script>
+'use strict';
+/* =========================================================
+   Pattern Library
+   Every pattern file, photo and the catalog itself are encrypted
+   in the browser (AES-256-GCM, key from the shared password via
+   PBKDF2) before they are saved to GitHub. The repo only ever
+   holds scrambled data.
+   ========================================================= */
+
+// ---------- Repo location ----------
+const DEFAULT_OWNER = 'Minacce23';
+const DEFAULT_REPO = 'patterns';
+const BRANCH = 'main';
+const API = window.__PL_API__ || 'https://api.github.com';
+const REPO = (() => {
+  if (window.__PL_REPO__) return window.__PL_REPO__;
+  const h = location.hostname;
+  if (h.endsWith('.github.io')) {
+    const owner = h.split('.')[0];
+    const seg = location.pathname.split('/').filter(Boolean)[0];
+    return { owner, repo: seg || h };
+  }
+  return { owner: DEFAULT_OWNER, repo: DEFAULT_REPO };
+})();
+const ON_PAGES = location.hostname.endsWith('.github.io');
+const ITERATIONS = 600000;
+const CHECK_TEXT = 'pattern-library-ok';
+
+const CRAFTS = ['Knit', 'Crochet', 'Sewing', 'Other'];
+const STATUSES = ['Want to make', 'In progress', 'Made it'];
+const YARN_WEIGHTS = ['Lace', 'Fingering', 'Sport', 'DK', 'Worsted', 'Aran', 'Bulky', 'Super Bulky', 'Jumbo'];
+const CAT_SUGGEST = {
+  Knit: ['Sweater', 'Cardigan', 'Top', 'Hat', 'Scarf / Shawl', 'Socks', 'Mittens / Gloves', 'Blanket', 'Bag', 'Toy', 'Baby', 'Home', 'Accessory'],
+  Crochet: ['Sweater', 'Cardigan', 'Top', 'Hat', 'Scarf / Shawl', 'Blanket', 'Bag', 'Amigurumi', 'Baby', 'Home', 'Accessory'],
+  Sewing: ['Top', 'Dress', 'Skirt', 'Pants / Shorts', 'Jacket / Coat', 'Bag', 'Quilt', 'Kids', 'Home', 'Accessory'],
+  Other: ['Home', 'Accessory', 'Gift']
+};
+const CRAFT_ICON = { Knit: '\u{1F9F6}', Crochet: '\u{1FAA1}', Sewing: '\u{1F9F5}', Other: '✂️' };
+
+// ---------- State ----------
+const S = {
+  config: null, key: null, token: '', catalog: { version: 1, patterns: [] },
+  filter: { craft: '', q: '', cat: '', status: '', designer: '', sort: 'new' },
+  thumbCache: new Map()
+};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + '-' + [...crypto.getRandomValues(new Uint8Array(8))].map(b => b.toString(16).padStart(2, '0')).join('');
+const fmtSize = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} }
+};
+
+// ---------- Bytes / base64 ----------
+function b64(bytes) {
+  const u = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  let s = '';
+  for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+function unb64(str) {
+  const s = atob(str.replace(/\s/g, ''));
+  const u = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i);
+  return u;
+}
+const te = new TextEncoder(), td = new TextDecoder();
+
+// ---------- Crypto ----------
+async function deriveKey(password, saltB64, iterations) {
+  const base = await crypto.subtle.importKey('raw', te.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: unb64(saltB64), iterations, hash: 'SHA-256' },
+    base, { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
+}
+async function encrypt(bytes, key = S.key) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, bytes));
+  const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12);
+  return out;
+}
+async function decrypt(buf, key = S.key) {
+  const u = new Uint8Array(buf);
+  return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u.subarray(0, 12) }, key, u.subarray(12)));
+}
+const encText = async (t, key) => b64(await encrypt(te.encode(t), key));
+const decText = async (s, key) => td.decode(await decrypt(unb64(s), key));
+
+// ---------- GitHub ----------
+class GHError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
+function ghHeaders(accept) {
+  const h = { 'Accept': accept || 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  if (S.token) h.Authorization = 'Bearer ' + S.token;
+  return h;
+}
+const contentsURL = p => `${API}/repos/${REPO.owner}/${REPO.repo}/contents/${p.split('/').map(encodeURIComponent).join('/')}`;
+
+async function ghGetSha(path) {
+  const r = await fetch(contentsURL(path) + '?ref=' + BRANCH + '&t=' + Date.now(), { headers: ghHeaders('application/vnd.github.object'), cache: 'no-store' });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new GHError(r.status, 'GitHub said ' + r.status);
+  return (await r.json()).sha;
+}
+async function ghPut(path, bytes, message, sha) {
+  const body = { message, content: b64(bytes), branch: BRANCH };
+  if (sha) body.sha = sha;
+  const r = await fetch(contentsURL(path), { method: 'PUT', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  if (!r.ok) throw new GHError(r.status, 'Save failed (' + r.status + ')');
+  return (await r.json()).content.sha;
+}
+async function ghDelete(path, message) {
+  const sha = await ghGetSha(path);
+  if (!sha) return;
+  const r = await fetch(contentsURL(path), { method: 'DELETE', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify({ message, sha, branch: BRANCH }) });
+  if (!r.ok && r.status !== 404) throw new GHError(r.status, 'Delete failed (' + r.status + ')');
+}
+// Read a file: prefer the GitHub API (always up to date), fall back to the published site.
+async function readFile(path) {
+  if (S.token) {
+    try {
+      const r = await fetch(contentsURL(path) + '?ref=' + BRANCH + '&t=' + Date.now(), { headers: ghHeaders('application/vnd.github.raw+json'), cache: 'no-store' });
+      if (r.ok) return await r.arrayBuffer();
+      if (r.status === 404) throw new GHError(404, 'Not found');
+    } catch (e) { if (e.status === 404) throw e; }
+  }
+  const r = await fetch(path + '?t=' + Date.now(), { cache: 'no-store' });
+  if (r.ok) return await r.arrayBuffer();
+  if (ON_PAGES) {
+    const r2 = await fetch(`https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/${BRANCH}/${path}?t=${Date.now()}`, { cache: 'no-store' });
+    if (r2.ok) return await r2.arrayBuffer();
+  }
+  throw new GHError(r.status, 'Could not load ' + path);
+}
+
+// ---------- Vault (encrypted files) ----------
+const vaultPath = id => `vault/${id}.bin`;
+async function vaultPut(id, bytes, label) { await ghPut(vaultPath(id), await encrypt(bytes), 'Add ' + label); }
+async function vaultGet(id) { return decrypt(await readFile(vaultPath(id))); }
+async function vaultBlobURL(id, type) {
+  if (S.thumbCache.has(id)) return S.thumbCache.get(id);
+  const url = URL.createObjectURL(new Blob([await vaultGet(id)], { type: type || 'image/jpeg' }));
+  S.thumbCache.set(id, url);
+  return url;
+}
+
+// ---------- Catalog ----------
+async function loadCatalog() {
+  const bytes = await decrypt(await readFile('catalog.enc'));
+  S.catalog = JSON.parse(td.decode(bytes));
+  if (!Array.isArray(S.catalog.patterns)) S.catalog.patterns = [];
+}
+// Re-reads the newest catalog, applies a change, and saves it (so two people editing at once don't overwrite each other).
+async function saveCatalog(mutate, message) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const sha = await ghGetSha('catalog.enc');
+    let fresh = { version: 1, patterns: [] };
+    if (sha) fresh = JSON.parse(td.decode(await decrypt(await readFile('catalog.enc'))));
+    mutate(fresh);
+    try {
+      await ghPut('catalog.enc', await encrypt(te.encode(JSON.stringify(fresh))), message, sha);
+      S.catalog = fresh;
+      return;
+    } catch (e) {
+      if (e.status === 409 || e.status === 422) { await new Promise(r => setTimeout(r, 800)); continue; }
+      throw e;
+    }
+  }
+  throw new Error('Could not save after several tries. Please try again.');
+}
+
+// ---------- Images ----------
+function loadImage(src) {
+  return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+async function resizeToJpeg(source, maxSide, quality = 0.85) {
+  // source: File/Blob or canvas
+  let w, h, draw;
+  if (source instanceof HTMLCanvasElement) { w = source.width; h = source.height; draw = source; }
+  else {
+    const url = URL.createObjectURL(source);
+    try { draw = await loadImage(url); } finally { setTimeout(() => URL.revokeObjectURL(url), 1000); }
+    w = draw.naturalWidth; h = draw.naturalHeight;
+  }
+  const s = Math.min(1, maxSide / Math.max(w, h));
+  const c = document.createElement('canvas');
+  c.width = Math.round(w * s); c.height = Math.round(h * s);
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+  ctx.drawImage(draw, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', quality));
+  return new Uint8Array(await blob.arrayBuffer());
+}
+let pdfjsPromise = null;
+function loadPdfJs() {
+  if (!pdfjsPromise) pdfjsPromise = new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = () => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(window.pdfjsLib); };
+    s.onerror = () => { pdfjsPromise = null; rej(new Error('pdf.js failed to load')); };
+    document.head.appendChild(s);
+  });
+  return pdfjsPromise;
+}
+// Picture of a PDF's first page, used as the cover when no cover photo was added.
+async function pdfFirstPage(file) {
+  const lib = await loadPdfJs();
+  const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  const page = await doc.getPage(1);
+  const vp0 = page.getViewport({ scale: 1 });
+  const vp = page.getViewport({ scale: 1100 / Math.max(vp0.width, vp0.height) });
+  const c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+  await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+  doc.destroy();
+  return c;
+}
+
+// ---------- UI helpers ----------
+function busy(msg) {
+  let el = $('#busy');
+  if (!msg) { el && el.remove(); return; }
+  if (!el) { el = document.createElement('div'); el.id = 'busy'; el.className = 'busy'; el.innerHTML = '<div class="spinner"></div><div class="msg"></div>'; document.body.appendChild(el); }
+  el.querySelector('.msg').textContent = msg;
+}
+function toast(msg, ms = 2800) {
+  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), ms);
+}
+function openModal(html, { narrow = false, onClose } = {}) {
+  const ov = document.createElement('div'); ov.className = 'overlay';
+  ov.innerHTML = `<div class="modal ${narrow ? 'narrow' : ''}" role="dialog" aria-modal="true">${html}</div>`;
+  const close = () => { ov.remove(); document.body.style.overflow = ''; onClose && onClose(); };
+  ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
+  ov.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
+  $('#modalRoot').appendChild(ov); document.body.style.overflow = 'hidden';
+  ov.close = close;
+  return ov;
+}
+function confirmBox(title, text, okLabel = 'Delete') {
+  return new Promise(res => {
+    let answered = false;
+    const m = openModal(`<div class="modal-head"><h2>${esc(title)}</h2></div><div class="modal-body">${esc(text)}</div>
+      <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="cfOk">${esc(okLabel)}</button></div>`,
+      { narrow: true, onClose: () => { if (!answered) res(false); } });
+    m.querySelector('#cfOk').onclick = () => { answered = true; m.close(); res(true); };
+  });
+}
+function explain(e) {
+  if (e && e.status === 401) return 'The GitHub key has expired or is wrong. Open Settings to add a new one.';
+  if (e && e.status === 403) return 'GitHub refused the save. Check the key has "Contents: Read and write" for this repo.';
+  if (e && e.status === 404) return 'GitHub could not find the repo. Check the key has access to "' + REPO.repo + '".';
+  if (e && e.status === 413) return 'That file is too large for GitHub (limit is about 50 MB).';
+  return (e && e.message) || 'Something went wrong.';
+}
+
+// ---------- Boot ----------
+async function boot() {
+  try {
+    const r = await fetch('config.json?t=' + Date.now(), { cache: 'no-store' });
+    if (r.ok) S.config = await r.json();
+    else if (ON_PAGES) {
+      const r2 = await fetch(`https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/${BRANCH}/config.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (r2.ok) S.config = await r2.json();
+    }
+  } catch {}
+  $('#boot').classList.add('hidden');
+  if (!S.config) { $('#setup').classList.remove('hidden'); return; }
+  // Remembered on this device?
+  const saved = store.get('pl_key');
+  if (saved) {
+    try {
+      const { salt, k } = JSON.parse(saved);
+      if (salt === S.config.salt) {
+        const key = await crypto.subtle.importKey('raw', unb64(k), { name: 'AES-GCM' }, true, ['encrypt', 'decrypt']);
+        if (await finishUnlock(key)) return;
+      }
+    } catch {}
+    store.del('pl_key');
+  }
+  $('#lock').classList.remove('hidden');
+  $('#pw').focus();
+}
+
+async function finishUnlock(key) {
+  try { if (await decText(S.config.check, key) !== CHECK_TEXT) return false; } catch { return false; }
+  S.key = key;
+  S.token = S.config.token ? await decText(S.config.token, key) : '';
+  busy('Opening your library...');
+  try { await loadCatalog(); }
+  catch (e) { busy(); if (e.status !== 404) { toast('Could not load the catalog: ' + explain(e), 5000); } }
+  busy();
+  $('#lock').classList.add('hidden'); $('#setup').classList.add('hidden');
+  $('#app').classList.remove('hidden');
+  render();
+  return true;
+}
+
+$('#lockForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('#unlockBtn'); btn.disabled = true; $('#lockErr').textContent = ''; btn.textContent = 'Unlocking...';
+  try {
+    const key = await deriveKey($('#pw').value, S.config.salt, S.config.iterations || ITERATIONS);
+    if (await finishUnlock(key)) {
+      if ($('#remember').checked) store.set('pl_key', JSON.stringify({ salt: S.config.salt, k: b64(await crypto.subtle.exportKey('raw', key)) }));
+      $('#pw').value = '';
+    } else $('#lockErr').textContent = 'That password is not right. Try again.';
+  } catch (err) { $('#lockErr').textContent = explain(err); }
+  btn.disabled = false; btn.textContent = 'Open library';
+});
+
+$('#setupForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const pw = $('#spw').value, pw2 = $('#spw2').value, token = $('#stoken').value.trim();
+  const err = $('#setupErr'); err.textContent = '';
+  if (pw.length < 10) { err.textContent = 'Use at least 10 characters. A short phrase works well.'; return; }
+  if (pw !== pw2) { err.textContent = 'The two passwords do not match.'; return; }
+  const btn = $('#setupBtn'); btn.disabled = true;
+  try {
+    S.token = token;
+    busy('Checking your GitHub key...');
+    const r = await fetch(`${API}/repos/${REPO.owner}/${REPO.repo}`, { headers: ghHeaders() });
+    if (!r.ok) throw new GHError(r.status, 'GitHub key check failed');
+    if (await ghGetSha('config.json')) throw new Error('This library is already set up. Refresh the page in a minute to sign in.');
+    busy('Locking everything up...');
+    const salt = b64(crypto.getRandomValues(new Uint8Array(16)));
+    const key = await deriveKey(pw, salt, ITERATIONS);
+    S.key = key;
+    const catSha = await ghGetSha('catalog.enc');
+    await ghPut('catalog.enc', await encrypt(te.encode(JSON.stringify({ version: 1, patterns: [] }))), 'Create catalog', catSha);
+    const config = { version: 1, salt, iterations: ITERATIONS, check: await encText(CHECK_TEXT, key), token: await encText(token, key) };
+    await ghPut('config.json', te.encode(JSON.stringify(config, null, 2)), 'Set up library');
+    S.config = config;
+    busy();
+    await finishUnlock(key);
+    toast('Your library is ready.');
+  } catch (ex) { busy(); err.textContent = explain(ex); }
+  btn.disabled = false;
+});
+
+// ---------- Library view ----------
+function uniqueSorted(arr) { return [...new Set(arr.filter(Boolean))].sort((a, b) => a.localeCompare(b)); }
+function fillSelect(sel, values, allLabel) {
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${allLabel}</option>` + values.map(v => `<option>${esc(v)}</option>`).join('');
+  sel.value = values.includes(cur) ? cur : '';
+}
+function haystack(p) {
+  return [p.title, p.designer, p.category, p.craft, p.status, p.sizes, p.yarnWeight, p.yarn, p.yardage, p.needles, p.fabric, p.fabricAmount, p.notions, p.notes, p.source, ...(p.tags || []),
+    ...(p.files || []).map(f => f.name), ...(p.photos || []).map(f => f.caption)].join(' ').toLowerCase();
+}
+function visiblePatterns() {
+  const f = S.filter;
+  const words = f.q.toLowerCase().split(/\s+/).filter(Boolean);
+  let list = S.catalog.patterns.filter(p =>
+    (!f.craft || p.craft === f.craft) && (!f.cat || p.category === f.cat) && (!f.status || p.status === f.status) &&
+    (!f.designer || p.designer === f.designer) && (!words.length || words.every(w => haystack(p).includes(w))));
+  const by = { new: (a, b) => (b.created || 0) - (a.created || 0), az: (a, b) => a.title.localeCompare(b.title),
+    designer: (a, b) => (a.designer || '~').localeCompare(b.designer || '~') || a.title.localeCompare(b.title) }[f.sort];
+  return list.sort(by);
+}
+function coverThumbId(p) {
+  if (p.cover) return p.cover.thumb;
+  if (p.photos && p.photos.length) return p.photos[0].thumb;
+  return null;
+}
+let thumbObserver;
+function render() {
+  const all = S.catalog.patterns;
+  fillSelect($('#fCat'), uniqueSorted(all.filter(p => !S.filter.craft || p.craft === S.filter.craft).map(p => p.category)), 'Any category');
+  fillSelect($('#fStatus'), STATUSES.filter(s => all.some(p => p.status === s)), 'Any status');
+  fillSelect($('#fDesigner'), uniqueSorted(all.map(p => p.designer)), 'Any designer');
+  S.filter.cat = $('#fCat').value; S.filter.status = $('#fStatus').value; S.filter.designer = $('#fDesigner').value;
+  const list = visiblePatterns();
+  const grid = $('#grid'), empty = $('#empty');
+  $('#count').textContent = all.length ? `${list.length} of ${all.length} pattern${all.length === 1 ? '' : 's'}` : '';
+  if (!all.length) {
+    grid.innerHTML = ''; empty.classList.remove('hidden');
+    empty.innerHTML = '<h2>Your library is empty</h2><p>Add your first pattern with the button at the top.</p>';
+    return;
+  }
+  if (!list.length) {
+    grid.innerHTML = ''; empty.classList.remove('hidden');
+    empty.innerHTML = '<h2>No matches</h2><p>Try a different search or clear the filters.</p>';
+    return;
+  }
+  empty.classList.add('hidden');
+  grid.innerHTML = list.map(p => {
+    const craft = (p.craft || 'Other');
+    const made = (p.photos || []).length;
+    return `<button class="card" data-id="${esc(p.id)}">
+      <div class="thumb" data-thumb="${esc(coverThumbId(p) || '')}"><span class="ph">${CRAFT_ICON[craft] || CRAFT_ICON.Other}</span>
+        ${made ? `<span class="made-flag">${made} photo${made > 1 ? 's' : ''}</span>` : ''}</div>
+      <div class="card-body"><div class="card-title">${esc(p.title)}</div>
+      <div class="card-sub">${esc([p.designer, p.category].filter(Boolean).join(' · ') || ' ')}</div>
+      <div class="badges"><span class="badge ${craft.toLowerCase()}">${esc(craft)}</span>
+      ${p.status ? `<span class="badge ${p.status === 'Made it' ? 'made' : ''}">${esc(p.status)}</span>` : ''}</div></div></button>`;
+  }).join('');
+  grid.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => showDetail(c.dataset.id)));
+  if (thumbObserver) thumbObserver.disconnect();
+  thumbObserver = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    thumbObserver.unobserve(en.target);
+    const id = en.target.dataset.thumb;
+    vaultBlobURL(id).then(url => { en.target.querySelector('.ph')?.remove(); const img = new Image(); img.alt = ''; img.src = url; en.target.prepend(img); }).catch(() => {});
+  }), { rootMargin: '300px' });
+  grid.querySelectorAll('.thumb[data-thumb]:not([data-thumb=""])').forEach(t => thumbObserver.observe(t));
+}
+
+$('#filters').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === c));
+  S.filter.craft = c.dataset.craft; render();
+});
+$('#fCat').onchange = () => render();
+$('#fStatus').onchange = () => render();
+$('#fDesigner').onchange = () => render();
+$('#fSort').onchange = e => { S.filter.sort = e.target.value; render(); };
+let qTimer; $('#q').addEventListener('input', e => { clearTimeout(qTimer); qTimer = setTimeout(() => { S.filter.q = e.target.value; render(); }, 150); });
+$('#addBtn').onclick = () => showEditor(null);
+$('#settingsBtn').onclick = showSettings;
+
+// ---------- Detail ----------
+async function openFile(f, download) {
+  // Open a window right away (phones block pop-ups opened after a wait)
+  const w = download ? null : window.open('', '_blank');
+  if (w) w.document.write('<p style="font:16px sans-serif;padding:20px">Unlocking pattern...</p>');
+  try {
+    const url = URL.createObjectURL(new Blob([await vaultGet(f.id)], { type: f.type || 'application/octet-stream' }));
+    if (w) w.location.href = url;
+    else { const a = document.createElement('a'); a.href = url; a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); }
+    setTimeout(() => URL.revokeObjectURL(url), 5 * 60 * 1000);
+  } catch (e) { if (w) w.close(); toast('Could not open file: ' + explain(e), 5000); }
+}
+function lightbox(id, caption) {
+  const lb = document.createElement('div'); lb.className = 'lightbox';
+  lb.innerHTML = `<button class="x" aria-label="Close">&times;</button><div class="spinner"></div>${caption ? `<div class="cap">${esc(caption)}</div>` : ''}`;
+  lb.onclick = e => { if (e.target === lb || e.target.classList.contains('x')) lb.remove(); };
+  document.body.appendChild(lb);
+  vaultBlobURL(id).then(url => { const img = new Image(); img.src = url; lb.querySelector('.spinner').replaceWith(img); }).catch(() => { lb.remove(); toast('Could not load photo'); });
+}
+function showDetail(id) {
+  const p = S.catalog.patterns.find(x => x.id === id); if (!p) return;
+  const craft = p.craft || 'Other';
+  const facts = [['Craft', p.craft], ['Category', p.category], ['Designer', p.designer], ['Status', p.status], ['Sizes', p.sizes],
+    ['Yarn weight', p.yarnWeight], ['Yarn', p.yarn], ['Yardage', p.yardage], ['Needles / hook', p.needles], ['Fabric', p.fabric], ['Fabric amount', p.fabricAmount], ['Notions', p.notions]]
+    .filter(([, v]) => v);
+  const src = p.source ? (/^https?:\/\//i.test(p.source) ? `<a href="${esc(p.source)}" target="_blank" rel="noopener noreferrer">${esc(p.source.replace(/^https?:\/\/(www\.)?/, '').slice(0, 60))}</a>` : esc(p.source)) : '';
+  if (src) facts.push(['Bought from', null, src]);
+  const m = openModal(`
+    <div class="modal-head"><h2>${esc(p.title)}</h2><button class="x" data-close aria-label="Close">&times;</button></div>
+    <div class="modal-body">
+      <div class="detail-top">
+        <div class="detail-cover" id="dCover"><span class="ph" style="font-size:52px;opacity:.5">${CRAFT_ICON[craft] || CRAFT_ICON.Other}</span></div>
+        <div>
+          <dl class="facts">${facts.map(([k, v, html]) => `<dt>${esc(k)}</dt><dd>${html || esc(v)}</dd>`).join('')}</dl>
+          ${(p.tags || []).length ? `<div style="margin-top:14px">${p.tags.map(t => `<button class="tag" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+        </div>
+      </div>
+      <div class="section"><h3>Pattern files</h3>
+        ${(p.files || []).length ? p.files.map((f, i) => `<div class="filerow"><span>\u{1F4C4}</span><span class="fname">${esc(f.name)}</span><span class="fsize">${fmtSize(f.size || 0)}</span>
+          <button class="btn small primary" data-open="${i}">Open</button><button class="btn small" data-dl="${i}">Download</button></div>`).join('') : '<p class="hint">No files added yet.</p>'}
+      </div>
+      ${(p.photos || []).length ? `<div class="section"><h3>What I made</h3><div class="photos">${p.photos.map((ph, i) =>
+        `<button class="photo" data-ph="${i}" data-thumb="${esc(ph.thumb)}">${ph.caption ? `<span class="cap">${esc(ph.caption)}</span>` : ''}</button>`).join('')}</div></div>` : ''}
+      ${p.notes ? `<div class="section"><h3>Notes</h3><div class="notes">${esc(p.notes)}</div></div>` : ''}
+    </div>
+    <div class="modal-foot"><button class="btn danger" id="dDel">Delete</button><button class="btn" id="dEdit">Edit</button><button class="btn primary" data-close>Done</button></div>`);
+  const cid = coverThumbId(p);
+  if (cid) {
+    const full = p.cover ? p.cover.id : p.photos[0].id;
+    vaultBlobURL(cid).then(url => { const box = m.querySelector('#dCover'); box.innerHTML = ''; const img = new Image(); img.src = url; img.style.cursor = 'zoom-in'; img.onclick = () => lightbox(full); box.appendChild(img); }).catch(() => {});
+  }
+  m.querySelectorAll('[data-thumb]').forEach(el => vaultBlobURL(el.dataset.thumb).then(url => { const img = new Image(); img.src = url; el.prepend(img); }).catch(() => {}));
+  m.querySelectorAll('[data-ph]').forEach(el => el.onclick = () => { const ph = p.photos[+el.dataset.ph]; lightbox(ph.id, ph.caption); });
+  m.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openFile(p.files[+b.dataset.open], false));
+  m.querySelectorAll('[data-dl]').forEach(b => b.onclick = () => openFile(p.files[+b.dataset.dl], true));
+  m.querySelectorAll('[data-tag]').forEach(b => b.onclick = () => { m.close(); $('#q').value = b.dataset.tag; S.filter.q = b.dataset.tag; render(); });
+  m.querySelector('#dEdit').onclick = () => { m.close(); showEditor(p.id); };
+  m.querySelector('#dDel').onclick = async () => {
+    if (!await confirmBox('Delete this pattern?', `"${p.title}" and its files and photos will be removed from the library. This cannot be undone.`)) return;
+    m.close();
+    await deletePattern(p);
+  };
+}
+
+async function deletePattern(p) {
+  if (!S.token) { toast('Add a GitHub key in Settings first.'); return; }
+  busy('Deleting...');
+  try {
+    await saveCatalog(c => { c.patterns = c.patterns.filter(x => x.id !== p.id); }, 'Remove pattern');
+    const ids = [...(p.files || []).map(f => f.id), ...(p.photos || []).flatMap(x => [x.id, x.thumb]), ...(p.cover ? [p.cover.id, p.cover.thumb] : [])];
+    for (const id of ids) { try { await ghDelete(vaultPath(id), 'Remove file'); } catch {} }
+    busy(); render(); toast('Pattern deleted.');
+  } catch (e) { busy(); toast(explain(e), 5000); }
+}
+
+// ---------- Editor ----------
+function showEditor(id) {
+  if (!S.token) { toast('Add a GitHub key in Settings before adding patterns.', 4000); return; }
+  const orig = id ? S.catalog.patterns.find(x => x.id === id) : null;
+  const p = orig ? JSON.parse(JSON.stringify(orig)) : { craft: S.filter.craft || 'Knit', status: 'Want to make', tags: [], files: [], photos: [], cover: null };
+  const pending = { files: [], photos: [], cover: null, removeCover: false };
+  const allCats = uniqueSorted(S.catalog.patterns.map(x => x.category));
+  const allDesigners = uniqueSorted(S.catalog.patterns.map(x => x.designer));
+  const allTags = uniqueSorted(S.catalog.patterns.flatMap(x => x.tags || []));
+  const m = openModal(`
+    <div class="modal-head"><h2>${orig ? 'Edit pattern' : 'Add a pattern'}</h2><button class="x" data-close aria-label="Close">&times;</button></div>
+    <form class="modal-body" id="edForm" autocomplete="off">
+      <div class="form-grid">
+        <div class="full"><label for="eTitle">Pattern name *</label><input type="text" id="eTitle" required value="${esc(p.title)}"></div>
+        <div><label for="eCraft">Craft</label><select id="eCraft">${CRAFTS.map(c => `<option ${c === p.craft ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+        <div><label for="eCat">Category</label><input type="text" id="eCat" list="catList" value="${esc(p.category)}" placeholder="Sweater, dress, hat..."><datalist id="catList"></datalist></div>
+        <div><label for="eDesigner">Designer or shop</label><input type="text" id="eDesigner" list="desList" value="${esc(p.designer)}"><datalist id="desList">${allDesigners.map(d => `<option value="${esc(d)}">`).join('')}</datalist></div>
+        <div><label for="eStatus">Status</label><select id="eStatus">${STATUSES.map(s => `<option ${s === p.status ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+        <div class="full"><label for="eSource">Where I bought it (link or shop)</label><input type="text" id="eSource" value="${esc(p.source)}" placeholder="https://www.etsy.com/... or Ravelry"></div>
+        <div class="full"><label for="eTags">Tags (separate with commas)</label><input type="text" id="eTags" value="${esc((p.tags || []).join(', '))}" placeholder="gift, beginner, summer">
+          ${allTags.length ? `<div class="hint">Used before: ${allTags.slice(0, 20).map(esc).join(', ')}</div>` : ''}</div>
+        <div class="full"><label for="eSizes">Sizes (and the size I make)</label><input type="text" id="eSizes" value="${esc(p.sizes)}" placeholder="XS to 3XL, I make XS"></div>
+      </div>
+      <fieldset id="yarnFs"><legend>Yarn and tools</legend><div class="form-grid">
+        <div><label for="eWeight">Yarn weight</label><select id="eWeight"><option value="">Not set</option>${YARN_WEIGHTS.map(w => `<option ${w === p.yarnWeight ? 'selected' : ''}>${w}</option>`).join('')}</select></div>
+        <div><label for="eYardage">Yardage needed</label><input type="text" id="eYardage" value="${esc(p.yardage)}" placeholder="900 to 1400 yds"></div>
+        <div><label for="eYarn">Suggested yarn</label><input type="text" id="eYarn" value="${esc(p.yarn)}"></div>
+        <div><label for="eNeedles">Needle / hook size</label><input type="text" id="eNeedles" value="${esc(p.needles)}" placeholder="US 7 (4.5 mm)"></div>
+      </div></fieldset>
+      <fieldset id="fabricFs"><legend>Fabric and notions</legend><div class="form-grid">
+        <div><label for="eFabric">Fabric type</label><input type="text" id="eFabric" value="${esc(p.fabric)}" placeholder="Linen, cotton lawn, knit..."></div>
+        <div><label for="eFabricAmt">Fabric amount</label><input type="text" id="eFabricAmt" value="${esc(p.fabricAmount)}" placeholder="2.5 yds of 54in"></div>
+        <div class="full"><label for="eNotions">Notions</label><input type="text" id="eNotions" value="${esc(p.notions)}" placeholder="Zipper, 6 buttons, elastic..."></div>
+      </div></fieldset>
+      <fieldset><legend>Pattern files</legend>
+        <div class="drop" id="fileDrop">Tap to add PDFs or pattern pages (or drop them here)</div>
+        <input type="file" id="fileIn" multiple accept="application/pdf,image/*,.pdf" class="hidden">
+        <div class="edit-list" id="fileList"></div>
+      </fieldset>
+      <fieldset><legend>Cover picture</legend>
+        <div class="cover-prev" id="coverPrev"></div>
+        <input type="file" id="coverIn" accept="image/*" class="hidden">
+        <div class="hint">Optional. If you skip it, the first page of the PDF is used.</div>
+      </fieldset>
+      <fieldset><legend>What I made</legend>
+        <div class="drop" id="photoDrop">Tap to add photos of your finished piece</div>
+        <input type="file" id="photoIn" multiple accept="image/*" class="hidden">
+        <div class="edit-list" id="photoList"></div>
+      </fieldset>
+      <div style="margin-top:18px"><label for="eNotes">Notes</label><textarea id="eNotes" rows="4" placeholder="Changes I made, gauge, fit notes...">${esc(p.notes)}</textarea></div>
+      <div class="err" id="edErr"></div>
+    </form>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="edSave">${orig ? 'Save changes' : 'Add pattern'}</button></div>`);
+  const q = s => m.querySelector(s);
+
+  const syncCraft = () => {
+    const c = q('#eCraft').value;
+    q('#yarnFs').classList.toggle('hidden', c === 'Sewing');
+    q('#fabricFs').classList.toggle('hidden', c === 'Knit' || c === 'Crochet');
+    q('#catList').innerHTML = uniqueSorted([...(CAT_SUGGEST[c] || []), ...allCats]).map(x => `<option value="${esc(x)}">`).join('');
+  };
+  q('#eCraft').onchange = syncCraft; syncCraft();
+
+  const renderFiles = () => {
+    q('#fileList').innerHTML = [
+      ...p.files.map((f, i) => `<div class="filerow"><span>\u{1F4C4}</span><span class="fname">${esc(f.name)}</span><span class="fsize">${fmtSize(f.size || 0)}</span><button type="button" class="btn small" data-rmf="${i}">Remove</button></div>`),
+      ...pending.files.map((f, i) => `<div class="filerow"><span>\u{1F4C4}</span><span class="fname">${esc(f.name)}</span><span class="fsize">${fmtSize(f.size)} · new</span><button type="button" class="btn small" data-rmpf="${i}">Remove</button></div>`)
+    ].join('');
+    q('#fileList').querySelectorAll('[data-rmf]').forEach(b => b.onclick = () => { p.files.splice(+b.dataset.rmf, 1); renderFiles(); });
+    q('#fileList').querySelectorAll('[data-rmpf]').forEach(b => b.onclick = () => { pending.files.splice(+b.dataset.rmpf, 1); renderFiles(); });
+  };
+  const renderPhotos = () => {
+    const list = q('#photoList');
+    list.innerHTML = [
+      ...p.photos.map((ph, i) => `<div class="edit-photo"><span class="ph" data-t="${esc(ph.thumb)}"></span><input type="text" data-cap="${i}" value="${esc(ph.caption)}" placeholder="Caption (optional)"><button type="button" class="btn small" data-rmp="${i}">Remove</button></div>`),
+      ...pending.photos.map((ph, i) => `<div class="edit-photo"><img src="${ph.url}" alt=""><input type="text" data-pcap="${i}" value="${esc(ph.caption)}" placeholder="Caption (optional)"><button type="button" class="btn small" data-rmpp="${i}">Remove</button></div>`)
+    ].join('');
+    list.querySelectorAll('[data-t]').forEach(el => vaultBlobURL(el.dataset.t).then(url => { const img = new Image(); img.src = url; el.replaceWith(img); }).catch(() => {}));
+    list.querySelectorAll('[data-cap]').forEach(i => i.oninput = () => { p.photos[+i.dataset.cap].caption = i.value; });
+    list.querySelectorAll('[data-pcap]').forEach(i => i.oninput = () => { pending.photos[+i.dataset.pcap].caption = i.value; });
+    list.querySelectorAll('[data-rmp]').forEach(b => b.onclick = () => { p.photos.splice(+b.dataset.rmp, 1); renderPhotos(); });
+    list.querySelectorAll('[data-rmpp]').forEach(b => b.onclick = () => { pending.photos.splice(+b.dataset.rmpp, 1); renderPhotos(); });
+  };
+  const renderCover = () => {
+    const box = q('#coverPrev');
+    const has = pending.cover || (p.cover && !pending.removeCover);
+    box.innerHTML = `${has ? `<img id="cvImg" alt="">` : ''}<button type="button" class="btn small" id="cvPick">${has ? 'Change' : 'Add cover picture'}</button>${has ? '<button type="button" class="btn small" id="cvRm">Remove</button>' : ''}`;
+    if (pending.cover) q('#cvImg').src = pending.cover.url;
+    else if (has) vaultBlobURL(p.cover.thumb).then(u => { const i = q('#cvImg'); if (i) i.src = u; }).catch(() => {});
+    q('#cvPick').onclick = () => q('#coverIn').click();
+    if (has) q('#cvRm').onclick = () => { pending.cover = null; pending.removeCover = true; renderCover(); };
+  };
+  renderFiles(); renderPhotos(); renderCover();
+
+  const addFiles = files => { for (const f of files) pending.files.push(f); renderFiles(); };
+  const addPhotos = files => { for (const f of files) if (f.type.startsWith('image/')) pending.photos.push({ file: f, url: URL.createObjectURL(f), caption: '' }); renderPhotos(); };
+  const wireDrop = (drop, input, fn) => {
+    drop.onclick = () => input.click();
+    input.onchange = () => { fn([...input.files]); input.value = ''; };
+    drop.ondragover = e => { e.preventDefault(); drop.style.borderColor = 'var(--accent)'; };
+    drop.ondragleave = () => { drop.style.borderColor = ''; };
+    drop.ondrop = e => { e.preventDefault(); drop.style.borderColor = ''; fn([...e.dataTransfer.files]); };
+  };
+  wireDrop(q('#fileDrop'), q('#fileIn'), addFiles);
+  wireDrop(q('#photoDrop'), q('#photoIn'), addPhotos);
+  q('#coverIn').onchange = () => { const f = q('#coverIn').files[0]; if (f) { pending.cover = { file: f, url: URL.createObjectURL(f) }; pending.removeCover = false; renderCover(); } q('#coverIn').value = ''; };
+  q('#edForm').onsubmit = e => { e.preventDefault(); q('#edSave').click(); };
+
+  q('#edSave').onclick = async () => {
+    const title = q('#eTitle').value.trim();
+    if (!title) { q('#edErr').textContent = 'Give the pattern a name.'; q('#eTitle').focus(); return; }
+    const big = pending.files.find(f => f.size > 50 * 1048576);
+    if (big) { q('#edErr').textContent = `"${big.name}" is over 50 MB, which is too big for GitHub.`; return; }
+    const craft = q('#eCraft').value;
+    const val = s => q(s).value.trim();
+    Object.assign(p, {
+      title, craft, category: val('#eCat'), designer: val('#eDesigner'), status: q('#eStatus').value, source: val('#eSource'),
+      tags: uniqueSorted(val('#eTags').split(',').map(t => t.trim())), sizes: val('#eSizes'), notes: q('#eNotes').value.trim(),
+      yarnWeight: craft === 'Sewing' ? '' : q('#eWeight').value, yardage: craft === 'Sewing' ? '' : val('#eYardage'),
+      yarn: craft === 'Sewing' ? '' : val('#eYarn'), needles: craft === 'Sewing' ? '' : val('#eNeedles'),
+      fabric: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eFabric'), fabricAmount: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eFabricAmt'),
+      notions: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eNotions')
+    });
+    const uploaded = [];
+    const total = pending.files.length + pending.photos.length + (pending.cover ? 1 : 0);
+    let n = 0;
+    const step = label => busy(total ? `Locking and uploading ${label} (${++n} of ${total})...` : 'Saving...');
+    try {
+      const removedCover = orig && orig.cover && (pending.removeCover || pending.cover) ? orig.cover : null;
+      if (pending.removeCover || pending.cover) p.cover = null;
+      for (const f of pending.files) {
+        step(f.name);
+        const id = uid();
+        await vaultPut(id, new Uint8Array(await f.arrayBuffer()), 'pattern file'); uploaded.push(id);
+        p.files.push({ id, name: f.name, type: f.type || (f.name.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream'), size: f.size });
+      }
+      for (const ph of pending.photos) {
+        step('photo');
+        const id = uid(), thumb = uid();
+        await vaultPut(id, await resizeToJpeg(ph.file, 2000), 'photo'); uploaded.push(id);
+        await vaultPut(thumb, await resizeToJpeg(ph.file, 520, 0.8), 'thumbnail'); uploaded.push(thumb);
+        p.photos.push({ id, thumb, caption: ph.caption || '' });
+      }
+      let coverSource = pending.cover ? pending.cover.file : null;
+      if (!coverSource && !p.cover && !pending.removeCover) {
+        // Use the first page of a PDF as the cover
+        const pdf = pending.files.find(f => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'));
+        const img = pending.files.find(f => f.type.startsWith('image/'));
+        if (pdf) { busy('Making a cover from the PDF...'); try { coverSource = await pdfFirstPage(pdf); } catch {} }
+        if (!coverSource && img) coverSource = img;
+      }
+      if (coverSource) {
+        if (pending.cover) step('cover'); else busy('Saving cover...');
+        const id = uid(), thumb = uid();
+        await vaultPut(id, await resizeToJpeg(coverSource, 1400), 'cover'); uploaded.push(id);
+        await vaultPut(thumb, await resizeToJpeg(coverSource, 520, 0.8), 'cover thumbnail'); uploaded.push(thumb);
+        p.cover = { id, thumb };
+      }
+      busy('Saving to the library...');
+      const now = Date.now();
+      if (!p.id) { p.id = uid(); p.created = now; }
+      p.updated = now;
+      await saveCatalog(c => {
+        const i = c.patterns.findIndex(x => x.id === p.id);
+        if (i >= 0) c.patterns[i] = p; else c.patterns.push(p);
+      }, (orig ? 'Update ' : 'Add ') + 'pattern');
+      // Clean up files that were removed while editing
+      if (orig) {
+        const keep = new Set([...p.files.map(f => f.id), ...p.photos.flatMap(x => [x.id, x.thumb]), ...(p.cover ? [p.cover.id, p.cover.thumb] : [])]);
+        const old = [...(orig.files || []).map(f => f.id), ...(orig.photos || []).flatMap(x => [x.id, x.thumb]), ...(removedCover ? [removedCover.id, removedCover.thumb] : [])];
+        for (const oid of old) if (!keep.has(oid)) { try { await ghDelete(vaultPath(oid), 'Remove file'); } catch {} }
+      }
+      busy(); m.close(); render(); toast(orig ? 'Saved.' : 'Pattern added.');
+      showDetail(p.id);
+    } catch (e) {
+      busy();
+      // Undo partial uploads so nothing is left orphaned
+      for (const id of uploaded) { try { await ghDelete(vaultPath(id), 'Undo upload'); } catch {} }
+      if (orig) Object.assign(p, JSON.parse(JSON.stringify(orig)));
+      q('#edErr').textContent = explain(e);
+    }
+  };
+  setTimeout(() => q('#eTitle').focus(), 50);
+}
+
+// ---------- Settings ----------
+function showSettings() {
+  const remembered = !!store.get('pl_key');
+  const m = openModal(`
+    <div class="modal-head"><h2>Settings</h2><button class="x" data-close aria-label="Close">&times;</button></div>
+    <div class="modal-body">
+      <p style="margin-top:0">${S.catalog.patterns.length} patterns in the library. ${S.token ? 'Uploading is turned on.' : '<strong>Uploading is off:</strong> add a GitHub key below.'}</p>
+      <label for="newTok">Replace the GitHub key</label>
+      <input type="password" id="newTok" placeholder="github_pat_...">
+      <div class="hint">Use this when the old key expires. It is saved locked with the library password, so your sister gets it automatically.</div>
+      <div style="margin-top:10px"><button class="btn small primary" id="saveTok">Save new key</button></div>
+      <div class="err" id="tokErr"></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      <p class="hint" style="margin-top:0">${remembered ? 'This device stays signed in.' : 'This device asks for the password each visit.'}</p>
+      <button class="btn" id="lockNow">Lock and sign out on this device</button>
+    </div>`, { narrow: true });
+  m.querySelector('#lockNow').onclick = () => { store.del('pl_key'); location.reload(); };
+  m.querySelector('#saveTok').onclick = async () => {
+    const tok = m.querySelector('#newTok').value.trim(); const err = m.querySelector('#tokErr'); err.textContent = '';
+    if (!tok) { err.textContent = 'Paste the new key first.'; return; }
+    const oldTok = S.token; S.token = tok;
+    busy('Checking the new key...');
+    try {
+      const r = await fetch(`${API}/repos/${REPO.owner}/${REPO.repo}`, { headers: ghHeaders() });
+      if (!r.ok) throw new GHError(r.status, 'Key check failed');
+      const sha = await ghGetSha('config.json');
+      const cfg = { ...S.config, token: await encText(tok, S.key) };
+      await ghPut('config.json', te.encode(JSON.stringify(cfg, null, 2)), 'Update upload key', sha);
+      S.config = cfg; busy(); m.close(); toast('New key saved.');
+    } catch (e) { S.token = oldTok; busy(); err.textContent = explain(e); }
+  };
+}
+
+boot();
+</script>
+</body>
+</html>
