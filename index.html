@@ -227,7 +227,8 @@ const ITERATIONS = 600000;
 const CHECK_TEXT = 'pattern-library-ok';
 
 const CRAFTS = ['Knit', 'Crochet', 'Sewing', 'Other'];
-const STATUSES = ['Want to make', 'In progress', 'Made it'];
+const STATUSES = ['In progress', 'Made it'];
+const DONE_TAG = /completed$/i;
 const YARN_WEIGHTS = ['Lace', 'Fingering', 'Sport', 'DK', 'Worsted', 'Aran', 'Bulky', 'Super Bulky', 'Jumbo'];
 const CAT_SUGGEST = {
   Knit: ['Sweater', 'Cardigan', 'Top', 'Hat', 'Scarf / Shawl', 'Socks', 'Mittens / Gloves', 'Blanket', 'Bag', 'Toy', 'Baby', 'Home', 'Accessory'],
@@ -519,7 +520,16 @@ async function finishUnlock(key) {
   $('#lock').classList.add('hidden'); $('#setup').classList.add('hidden');
   $('#app').classList.remove('hidden');
   render();
+  cleanUpStatuses();
   return true;
+}
+// "Want to make" is no longer used: clear it from any pattern that still has it.
+async function cleanUpStatuses() {
+  if (!S.token || !S.catalog.patterns.some(p => p.status === 'Want to make')) return;
+  try {
+    await saveCatalog(c => c.patterns.forEach(p => { if (p.status === 'Want to make') p.status = ''; }), 'Clear Want to make status');
+    render();
+  } catch {}
 }
 
 $('#lockForm').addEventListener('submit', async e => {
@@ -620,7 +630,8 @@ function render() {
       <div class="card-body"><div class="card-title">${esc(p.title)}</div>
       <div class="card-sub">${esc([p.designer, p.category].filter(Boolean).join(' · ') || ' ')}</div>
       <div class="badges"><span class="badge ${craft.toLowerCase()}">${esc(craft)}</span>
-      ${p.status ? `<span class="badge ${p.status === 'Made it' ? 'made' : ''}">${esc(p.status)}</span>` : ''}</div></div></button>`;
+      ${p.status ? `<span class="badge ${p.status === 'Made it' ? 'made' : ''}">${esc(p.status)}</span>` : ''}
+      ${(p.tags || []).filter(t => DONE_TAG.test(t)).map(t => `<span class="badge made">${esc(t)}</span>`).join('')}</div></div></button>`;
   }).join('');
   grid.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => showDetail(c.dataset.id)));
   if (thumbObserver) thumbObserver.disconnect();
@@ -725,7 +736,7 @@ async function deletePattern(p) {
 function showEditor(id) {
   if (!S.token) { toast('Add a GitHub key in Settings before adding patterns.', 4000); return; }
   const orig = id ? S.catalog.patterns.find(x => x.id === id) : null;
-  const p = orig ? JSON.parse(JSON.stringify(orig)) : { craft: S.filter.craft || 'Knit', status: 'Want to make', tags: [], files: [], photos: [], cover: null };
+  const p = orig ? JSON.parse(JSON.stringify(orig)) : { craft: S.filter.craft || 'Knit', status: '', tags: [], files: [], photos: [], cover: null };
   const pending = { files: [], photos: [], cover: null, removeCover: false };
   const allCats = uniqueSorted(S.catalog.patterns.map(x => x.category));
   const allDesigners = uniqueSorted(S.catalog.patterns.map(x => x.designer));
@@ -738,7 +749,7 @@ function showEditor(id) {
         <div><label for="eCraft">Craft</label><select id="eCraft">${CRAFTS.map(c => `<option ${c === p.craft ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
         <div><label for="eCat">Category</label><input type="text" id="eCat" list="catList" value="${esc(p.category)}" placeholder="Sweater, dress, hat..."><datalist id="catList"></datalist></div>
         <div><label for="eDesigner">Designer or shop</label><input type="text" id="eDesigner" list="desList" value="${esc(p.designer)}"><datalist id="desList">${allDesigners.map(d => `<option value="${esc(d)}">`).join('')}</datalist></div>
-        <div><label for="eStatus">Status</label><select id="eStatus">${STATUSES.map(s => `<option ${s === p.status ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+        <div><label for="eStatus">Status</label><select id="eStatus"><option value="">No status</option>${STATUSES.map(s => `<option ${s === p.status ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
         <div class="full"><label for="eSource">Where I bought it (link or shop)</label><input type="text" id="eSource" value="${esc(p.source)}" placeholder="https://www.etsy.com/... or Ravelry"></div>
         <div class="full"><label for="eTags">Tags (separate with commas)</label><input type="text" id="eTags" value="${esc((p.tags || []).join(', '))}" placeholder="gift, beginner, summer">
           ${allTags.length ? `<div class="hint">Used before: ${allTags.slice(0, 20).map(esc).join(', ')}</div>` : ''}</div>
@@ -960,7 +971,10 @@ async function prepareImport(files) {
   try { manifest = JSON.parse(await mf.text()); } catch { toast('The import file could not be read.', 5000); return; }
   const entries = manifest.patterns || [];
   const done = new Set(S.catalog.patterns.map(p => p.importKey).filter(Boolean));
-  const todo = entries.filter(e => !done.has(e.key));
+  S.catalog.patterns.forEach(p => (p.photoImports || []).forEach(k => done.add(k)));
+  const byKey = new Map(S.catalog.patterns.filter(p => p.importKey).map(p => [p.importKey, p]));
+  const notFound = entries.filter(e => e.addPhotosTo && !byKey.has(e.addPhotosTo) && !done.has(e.key));
+  const todo = entries.filter(e => !done.has(e.key) && !(e.addPhotosTo && !byKey.has(e.addPhotosTo)));
   const get = p => byPath.get(String(p).normalize('NFC'));
   const missing = [];
   let bytes = 0, fileCount = 0;
@@ -970,15 +984,18 @@ async function prepareImport(files) {
     }
     for (const p of [...(e.cover ? [e.cover] : []), ...(e.coverPdf ? [e.coverPdf.path] : [])]) if (!get(p) && !missing.includes(p)) missing.push(p);
   }
-  const skipped = entries.length - todo.length;
+  const skipped = entries.length - todo.length - notFound.length;
   const m = openModal(`
     <div class="modal-head"><h2>Import patterns</h2><button class="x" data-close aria-label="Close">&times;</button></div>
     <div class="modal-body">
-      ${todo.length ? `<p style="margin-top:0">Ready to add <strong>${todo.length} pattern${todo.length > 1 ? 's' : ''}</strong> (${fileCount} files, ${fmtSize(bytes)}).
+      ${todo.length ? `<p style="margin-top:0">Ready to import <strong>${todo.length} item${todo.length > 1 ? 's' : ''}</strong> (${fileCount} files, ${fmtSize(bytes)}).
         ${skipped ? ` ${skipped} already in the library will be skipped.` : ''}</p>
         <p class="hint">Keep this tab open until it finishes. If it stops partway, run the import again and it picks up where it left off.</p>
-        <div style="max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;background:#fff">${todo.map(e => `<div>${esc(e.title)} <span class="hint">\u00B7 ${esc(e.craft || '')}</span></div>`).join('')}</div>`
+        <div style="max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;background:#fff">${todo.map(e => e.addPhotosTo
+          ? `<div>Add ${(e.photos || []).length} photo${(e.photos || []).length === 1 ? '' : 's'} to <strong>${esc(byKey.get(e.addPhotosTo).title)}</strong></div>`
+          : `<div>${esc(e.title)} <span class="hint">\u00B7 ${esc(e.craft || '')}</span></div>`).join('')}</div>`
       : `<p style="margin-top:0">Everything in this folder is already in the library.</p>`}
+      ${notFound.length ? `<p class="hint">Not in the library yet, so skipped for now: ${notFound.map(e => esc(e.title)).join(', ')}. Run this again after they are added.</p>` : ''}
       ${missing.length ? `<p class="err">These files were not found and will be skipped: ${missing.map(esc).join(', ')}</p>` : ''}
     </div>
     <div class="modal-foot"><button class="btn" data-close>Cancel</button>${todo.length ? '<button class="btn primary" id="impGo">Start import</button>' : ''}</div>`);
@@ -989,12 +1006,39 @@ async function runImport(todo, get) {
   const base = Date.now();
   for (let i = 0; i < todo.length; i++) {
     const e = todo[i];
-    const head = `Pattern ${i + 1} of ${todo.length}: ${e.title}`;
+    const head = `Item ${i + 1} of ${todo.length}: ${e.title}`;
     const uploaded = [];
     try {
+      if (e.addPhotosTo) {
+        const add = [];
+        for (const ph of (e.photos || [])) {
+          const f = get(ph.path); if (!f) continue;
+          busy(`${head}\nSaving photo ${add.length + 1} of ${(e.photos || []).length}...`);
+          let big, small;
+          try { big = await resizeToJpeg(f, 2000); small = await resizeToJpeg(f, 520, 0.8); } catch { continue; }
+          const id = uid(), thumb = uid();
+          await vaultPut(id, big, 'photo'); uploaded.push(id);
+          await vaultPut(thumb, small, 'thumbnail'); uploaded.push(thumb);
+          add.push({ id, thumb, caption: ph.caption || '' });
+        }
+        busy(`${head}\nAdding to the library...`);
+        await saveCatalog(c => {
+          const t = c.patterns.find(x => x.importKey === e.addPhotosTo);
+          if (!t) throw new Error('"' + e.title + '" is no longer in the library.');
+          t.photoImports = t.photoImports || [];
+          if (t.photoImports.includes(e.key)) return;
+          t.photos = [...(t.photos || []), ...add];
+          t.photoImports.push(e.key);
+          if (e.status && t.status !== e.status) t.status = e.status;
+          if (e.addTags) t.tags = uniqueSorted([...(t.tags || []), ...e.addTags]);
+          t.updated = Date.now();
+        }, 'Add photos to ' + e.title);
+        added++; render();
+        continue;
+      }
       const p = {
         id: uid(), importKey: e.key, title: e.title, craft: e.craft || 'Other', category: e.category || '', designer: e.designer || '',
-        status: e.status || 'Want to make', source: e.source || '', tags: e.tags || [], sizes: e.sizes || '', notes: e.notes || '',
+        status: e.status || '', source: e.source || '', tags: e.tags || [], sizes: e.sizes || '', notes: e.notes || '',
         yarnWeight: e.yarnWeight || '', yardage: e.yardage || '', yarn: e.yarn || '', needles: e.needles || '',
         fabric: e.fabric || '', fabricAmount: e.fabricAmount || '', notions: e.notions || '',
         files: [], photos: [], cover: null, created: base - i, updated: Date.now()
@@ -1048,7 +1092,7 @@ async function runImport(todo, get) {
       return;
     }
   }
-  busy(); render(); toast(`Imported ${added} pattern${added === 1 ? '' : 's'}.`, 4000);
+  busy(); render(); toast(`Imported ${added} item${added === 1 ? '' : 's'}.`, 4000);
 }
 
 boot();
