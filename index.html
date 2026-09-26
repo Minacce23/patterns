@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +124,7 @@ legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-siz
 .hint{font-size:13px;color:var(--muted);margin-top:6px}
 
 /* Busy + toast + lightbox */
-.busy{position:fixed;inset:0;background:rgba(247,242,234,.85);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-weight:500}
+.busy{white-space:pre-line;text-align:center;position:fixed;inset:0;background:rgba(247,242,234,.85);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-weight:500}
 .spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;z-index:120;font-size:14px;max-width:90vw;text-align:center}
@@ -303,17 +302,35 @@ async function ghGetSha(path) {
   if (!r.ok) throw new GHError(r.status, 'GitHub said ' + r.status);
   return (await r.json()).sha;
 }
+// GitHub limits how fast files can be saved, so writes are spaced out and retried when it says "slow down".
+let lastWrite = 0;
+async function ghWrite(url, init) {
+  for (let attempt = 0; ; attempt++) {
+    const gap = 700 - (Date.now() - lastWrite);
+    if (gap > 0) await new Promise(r => setTimeout(r, gap));
+    lastWrite = Date.now();
+    const r = await fetch(url, init);
+    if (r.ok || r.status === 404) return r;
+    let text = ''; try { text = await r.clone().text(); } catch {}
+    const limited = r.status === 429 || (r.status === 403 && (/rate limit/i.test(text) || r.headers.get('retry-after')));
+    if (!limited || attempt >= 6) return r;
+    const wait = Math.min(120, Math.max(20, +(r.headers.get('retry-after') || 60)));
+    const b = document.querySelector('#busy .msg'); const prev = b && b.textContent;
+    for (let s = wait; s > 0; s--) { if (b) b.textContent = `GitHub asked us to slow down. Continuing in ${s}s...`; await new Promise(res => setTimeout(res, 1000)); }
+    if (b && prev) b.textContent = prev;
+  }
+}
 async function ghPut(path, bytes, message, sha) {
   const body = { message, content: b64(bytes), branch: BRANCH };
   if (sha) body.sha = sha;
-  const r = await fetch(contentsURL(path), { method: 'PUT', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const r = await ghWrite(contentsURL(path), { method: 'PUT', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
   if (!r.ok) throw new GHError(r.status, 'Save failed (' + r.status + ')');
   return (await r.json()).content.sha;
 }
 async function ghDelete(path, message) {
   const sha = await ghGetSha(path);
   if (!sha) return;
-  const r = await fetch(contentsURL(path), { method: 'DELETE', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify({ message, sha, branch: BRANCH }) });
+  const r = await ghWrite(contentsURL(path), { method: 'DELETE', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify({ message, sha, branch: BRANCH }) });
   if (!r.ok && r.status !== 404) throw new GHError(r.status, 'Delete failed (' + r.status + ')');
 }
 // Read a file: prefer the GitHub API (always up to date), fall back to the published site.
@@ -403,10 +420,10 @@ function loadPdfJs() {
   return pdfjsPromise;
 }
 // Picture of a PDF's first page, used as the cover when no cover photo was added.
-async function pdfFirstPage(file) {
+async function pdfFirstPage(file, pageNum = 1) {
   const lib = await loadPdfJs();
   const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
-  const page = await doc.getPage(1);
+  const page = await doc.getPage(Math.min(Math.max(1, pageNum), doc.numPages));
   const vp0 = page.getViewport({ scale: 1 });
   const vp = page.getViewport({ scale: 1100 / Math.max(vp0.width, vp0.height) });
   const c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
@@ -894,8 +911,15 @@ function showSettings() {
       <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
       <p class="hint" style="margin-top:0">${remembered ? 'This device stays signed in.' : 'This device asks for the password each visit.'}</p>
       <button class="btn" id="lockNow">Lock and sign out on this device</button>
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      <label>Import a batch</label>
+      <div class="hint" style="margin-top:0">For a folder Claude has prepared (it contains a file named <em>_pattern-library-import.json</em>). Works on a computer, not a phone.</div>
+      <div style="margin-top:10px"><button class="btn small" id="importBtn">Choose folder...</button></div>
+      <input type="file" id="importIn" webkitdirectory directory multiple class="hidden">
     </div>`, { narrow: true });
   m.querySelector('#lockNow').onclick = () => { store.del('pl_key'); location.reload(); };
+  m.querySelector('#importBtn').onclick = () => { if (!S.token) { toast('Add a GitHub key first.'); return; } m.querySelector('#importIn').click(); };
+  m.querySelector('#importIn').onchange = e => { const files = [...e.target.files]; e.target.value = ''; m.close(); prepareImport(files); };
   m.querySelector('#saveTok').onclick = async () => {
     const tok = m.querySelector('#newTok').value.trim(); const err = m.querySelector('#tokErr'); err.textContent = '';
     if (!tok) { err.textContent = 'Paste the new key first.'; return; }
@@ -910,6 +934,105 @@ function showSettings() {
       S.config = cfg; busy(); m.close(); toast('New key saved.');
     } catch (e) { S.token = oldTok; busy(); err.textContent = explain(e); }
   };
+}
+
+// ---------- Batch import ----------
+const MANIFEST = '_pattern-library-import.json';
+async function prepareImport(files) {
+  const byPath = new Map();
+  for (const f of files) {
+    const rel = (f.webkitRelativePath || f.name).split('/').slice(1).join('/') || f.name;
+    byPath.set(rel.normalize('NFC'), f);
+  }
+  const mf = byPath.get(MANIFEST);
+  if (!mf) { toast('That folder has no ' + MANIFEST + ' file in it.', 5000); return; }
+  let manifest;
+  try { manifest = JSON.parse(await mf.text()); } catch { toast('The import file could not be read.', 5000); return; }
+  const entries = manifest.patterns || [];
+  const done = new Set(S.catalog.patterns.map(p => p.importKey).filter(Boolean));
+  const todo = entries.filter(e => !done.has(e.key));
+  const get = p => byPath.get(String(p).normalize('NFC'));
+  const missing = [];
+  let bytes = 0, fileCount = 0;
+  for (const e of todo) {
+    for (const p of [...(e.files || []), ...(e.photos || []).map(x => x.path)]) {
+      const f = get(p); if (!f) missing.push(p); else { bytes += f.size; fileCount++; }
+    }
+    for (const p of [...(e.cover ? [e.cover] : []), ...(e.coverPdf ? [e.coverPdf.path] : [])]) if (!get(p) && !missing.includes(p)) missing.push(p);
+  }
+  const skipped = entries.length - todo.length;
+  const m = openModal(`
+    <div class="modal-head"><h2>Import patterns</h2><button class="x" data-close aria-label="Close">&times;</button></div>
+    <div class="modal-body">
+      ${todo.length ? `<p style="margin-top:0">Ready to add <strong>${todo.length} pattern${todo.length > 1 ? 's' : ''}</strong> (${fileCount} files, ${fmtSize(bytes)}).
+        ${skipped ? ` ${skipped} already in the library will be skipped.` : ''}</p>
+        <p class="hint">Keep this tab open until it finishes. If it stops partway, run the import again and it picks up where it left off.</p>
+        <div style="max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;background:#fff">${todo.map(e => `<div>${esc(e.title)} <span class="hint">\u00B7 ${esc(e.craft || '')}</span></div>`).join('')}</div>`
+      : `<p style="margin-top:0">Everything in this folder is already in the library.</p>`}
+      ${missing.length ? `<p class="err">These files were not found and will be skipped: ${missing.map(esc).join(', ')}</p>` : ''}
+    </div>
+    <div class="modal-foot"><button class="btn" data-close>Cancel</button>${todo.length ? '<button class="btn primary" id="impGo">Start import</button>' : ''}</div>`);
+  if (todo.length) m.querySelector('#impGo').onclick = () => { m.close(); runImport(todo, get); };
+}
+async function runImport(todo, get) {
+  let added = 0;
+  const base = Date.now();
+  for (let i = 0; i < todo.length; i++) {
+    const e = todo[i];
+    const head = `Pattern ${i + 1} of ${todo.length}: ${e.title}`;
+    const uploaded = [];
+    try {
+      const p = {
+        id: uid(), importKey: e.key, title: e.title, craft: e.craft || 'Other', category: e.category || '', designer: e.designer || '',
+        status: e.status || 'Want to make', source: e.source || '', tags: e.tags || [], sizes: e.sizes || '', notes: e.notes || '',
+        yarnWeight: e.yarnWeight || '', yardage: e.yardage || '', yarn: e.yarn || '', needles: e.needles || '',
+        fabric: e.fabric || '', fabricAmount: e.fabricAmount || '', notions: e.notions || '',
+        files: [], photos: [], cover: null, created: base - i, updated: Date.now()
+      };
+      const docs = (e.files || []).map(get).filter(Boolean);
+      for (let j = 0; j < docs.length; j++) {
+        const f = docs[j];
+        busy(`${head}\nLocking file ${j + 1} of ${docs.length}...`);
+        const id = uid();
+        await vaultPut(id, new Uint8Array(await f.arrayBuffer()), 'pattern file'); uploaded.push(id);
+        p.files.push({ id, name: f.name, type: f.type || (f.name.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream'), size: f.size });
+      }
+      for (const ph of (e.photos || [])) {
+        const f = get(ph.path); if (!f) continue;
+        busy(`${head}\nSaving photo...`);
+        const id = uid(), thumb = uid();
+        await vaultPut(id, await resizeToJpeg(f, 2000), 'photo'); uploaded.push(id);
+        await vaultPut(thumb, await resizeToJpeg(f, 520, 0.8), 'thumbnail'); uploaded.push(thumb);
+        p.photos.push({ id, thumb, caption: ph.caption || '' });
+      }
+      let src = e.cover ? get(e.cover) : null;
+      if (!src && e.coverPdf && get(e.coverPdf.path)) {
+        busy(`${head}\nMaking a cover...`);
+        try { src = await pdfFirstPage(get(e.coverPdf.path), e.coverPdf.page || 1); } catch {}
+      }
+      if (src) {
+        busy(`${head}\nSaving cover...`);
+        const id = uid(), thumb = uid();
+        await vaultPut(id, await resizeToJpeg(src, 1400), 'cover'); uploaded.push(id);
+        await vaultPut(thumb, await resizeToJpeg(src, 520, 0.8), 'cover thumbnail'); uploaded.push(thumb);
+        p.cover = { id, thumb };
+      }
+      busy(`${head}\nAdding to the library...`);
+      await saveCatalog(c => { if (!c.patterns.some(x => x.importKey === e.key)) c.patterns.push(p); }, 'Import ' + e.title);
+      added++;
+      render();
+    } catch (err) {
+      busy('Cleaning up...');
+      for (const id of uploaded) { try { await ghDelete(vaultPath(id), 'Undo upload'); } catch {} }
+      busy(); render();
+      openModal(`<div class="modal-head"><h2>Import paused</h2></div><div class="modal-body">
+        <p style="margin-top:0">Added ${added} of ${todo.length}. It stopped on "${esc(e.title)}": ${esc(explain(err))}</p>
+        <p class="hint">Run the import again with the same folder to continue. Patterns already added are skipped.</p></div>
+        <div class="modal-foot"><button class="btn primary" data-close>OK</button></div>`, { narrow: true });
+      return;
+    }
+  }
+  busy(); render(); toast(`Imported ${added} pattern${added === 1 ? '' : 's'}.`, 4000);
 }
 
 boot();
