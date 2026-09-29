@@ -7,7 +7,7 @@
 <title>Pattern Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f7f2ea; --panel:#fffdf9; --ink:#2f2a25; --muted:#7a7066; --line:#e6ddd0;
@@ -16,8 +16,8 @@
   --radius:14px; --shadow:0 1px 2px rgba(60,40,20,.06),0 4px 16px rgba(60,40,20,.06);
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Nunito,system-ui,-apple-system,sans-serif}
+h1,h2,h3{font-family:Caveat,cursive;font-weight:600;margin:0}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
@@ -48,7 +48,7 @@ label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bot
 /* App shell */
 header.top{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top-inner{max-width:1200px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.brand{font-family:Fraunces,Georgia,serif;font-size:22px;font-weight:600;white-space:nowrap;margin-right:auto}
+.brand{font-family:Caveat,cursive;font-size:22px;font-weight:600;white-space:nowrap;margin-right:auto}
 .search{flex:1 1 260px;order:3;min-width:0}
 .top-actions{display:flex;gap:8px}
 @media(max-width:520px){.wide-only{display:none}.brand{font-size:19px}.top-actions .btn{padding:7px 12px}}
@@ -58,12 +58,12 @@ header.top{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.94);bac
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .filters select{width:auto;padding:6px 10px;border-radius:999px;font-size:14px;background:var(--panel)}
 .count{color:var(--muted);font-size:14px;margin-left:auto}
-.crumbs{max-width:1200px;margin:0 auto;padding:22px 16px 4px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;font-family:Fraunces,Georgia,serif}
+.crumbs{max-width:1200px;margin:0 auto;padding:22px 16px 4px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;font-family:Caveat,cursive}
 .crumbs a{color:var(--muted);text-decoration:none;font-size:17px}
 .crumbs a:hover{color:var(--accent)}
 .crumbs .sep{color:#c9bcab}
 .crumbs .here{font-size:28px;font-weight:600;color:var(--ink)}
-.crumbs .sub{width:100%;font-family:Inter,system-ui,sans-serif;font-size:14px;color:var(--muted)}
+.crumbs .sub{width:100%;font-family:Nunito,system-ui,sans-serif;font-size:14px;color:var(--muted)}
 /* Folders */
 .folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:34px 26px;padding:26px 4px 10px}
 .folders.small{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:26px 20px}
@@ -84,7 +84,7 @@ header.top{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.94);bac
 .folder:hover .f-front{transform:perspective(600px) rotateX(-10deg)}
 .folder .f-front::after{content:"";position:absolute;inset:7px;border:2px dashed rgba(255,255,255,.55);border-radius:8px 8px 11px 11px;pointer-events:none}
 .folder .f-icon{position:absolute;top:12px;right:14px;width:34px;height:34px;opacity:.95}
-.folder .f-name{font-family:Fraunces,Georgia,serif;font-size:21px;font-weight:600;line-height:1.15;text-shadow:0 1px 2px rgba(0,0,0,.12);position:relative}
+.folder .f-name{font-family:Caveat,cursive;font-size:21px;font-weight:600;line-height:1.15;text-shadow:0 1px 2px rgba(0,0,0,.12);position:relative}
 .folder .f-count{font-size:13px;font-weight:500;opacity:.92;position:relative;margin-top:2px}
 .folders.small .f-name{font-size:17px}
 .folders.small .f-icon{width:26px;height:26px;top:9px;right:11px}
@@ -94,7 +94,7 @@ header.top{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.94);bac
   .folder .f-front{padding:10px 11px}.folder .f-icon,.folders.small .f-icon{width:22px;height:22px;top:9px;right:10px}
   .crumbs .here{font-size:24px}}
 .folder:focus-visible{outline:3px solid var(--accent);outline-offset:6px;border-radius:14px}
-.section-label{font-family:Fraunces,Georgia,serif;font-size:18px;margin:26px 0 4px;color:var(--muted)}
+.section-label{font-family:Caveat,cursive;font-size:18px;margin:26px 0 4px;color:var(--muted)}
 main{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
 .card{background:var(--panel);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;text-align:left;border:0;padding:0;display:flex;flex-direction:column}
@@ -149,7 +149,7 @@ main{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
 .form-grid .full{grid-column:1/-1}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
 fieldset{border:1px solid var(--line);border-radius:12px;padding:14px;margin:18px 0 0}
-legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-size:16px}
+legend{font-weight:600;padding:0 6px;font-family:Caveat,cursive;font-size:16px}
 .drop{border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--muted);font-size:14px;cursor:pointer;background:#fff}
 .drop:hover{border-color:var(--accent)}
 .edit-list{margin-top:10px}
@@ -169,18 +169,168 @@ legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-siz
 .lightbox img{max-width:100%;max-height:85vh;border-radius:6px}
 .lightbox .cap{color:#fff;margin-top:10px;text-align:center}
 .lightbox .x{position:absolute;top:10px;right:14px;color:#fff}
+
+/* ================= Y2K / Lizzie McGuire theme ================= */
+:root{
+  --bg:#FFF5E9; --panel:#FFFFFF; --ink:#2A1F3D; --muted:#6B5374; --line:#F2D6E0;
+  --accent:#F49AB7; --accent-ink:#2A1F3D; --accent-soft:#FCD9E6; --lilac:#C9A8E0; --lilac-soft:#EDDFF8;
+  --sky:#A8D5E8; --sage:#B5D49F; --gold:#F0CC72;
+  --radius:22px; --shadow:4px 4px 0 var(--accent-soft);
+}
+html,body{color:var(--ink);background:var(--bg);min-height:100%}
+body{min-height:100vh}
+body{background:
+  radial-gradient(520px 420px at 0% 0%, rgba(201,168,224,.35), transparent 70%),
+  radial-gradient(560px 460px at 100% 6%, rgba(244,154,183,.30), transparent 70%),
+  radial-gradient(700px 500px at 50% 110%, rgba(252,217,230,.55), transparent 70%), var(--bg);
+  background-attachment:fixed}
+h1,h2,h3{font-family:Caveat,cursive;font-weight:700}
+.dot{color:var(--accent)}
+.decor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.decor span{position:absolute;opacity:.5;animation:floaty 7s ease-in-out infinite}
+.decor span svg{width:100%;height:100%;display:block}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(calc(var(--r,0deg) + 8deg))}}
+@media (prefers-reduced-motion: reduce){.decor span,.folder,.f-sticker{animation:none!important;transition:none!important}}
+#app,.gate,#modalRoot{position:relative;z-index:1}
+/* buttons: sticker style */
+.btn{border:2px solid var(--ink);background:#fff;font-weight:600;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.btn:hover{border-color:var(--ink);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--accent);color:var(--ink);border-color:var(--ink)}
+.btn.primary:hover{filter:none;background:#f7a9c3}
+.btn.danger{color:#a33b5b;border-color:var(--ink)}
+.btn.small{box-shadow:2px 2px 0 var(--ink)}
+input[type=text],input[type=password],input[type=search],input[type=url],select,textarea{border:2px solid var(--line);border-radius:14px;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--lilac);box-shadow:0 0 0 4px var(--lilac-soft)}
+label{color:var(--muted);font-weight:600}
+/* header */
+header.top{background:rgba(255,245,233,.88);border-bottom:2px dashed var(--line)}
+.brand{font-family:Caveat,cursive;font-weight:700;font-size:28px;text-shadow:2px 2px 0 var(--accent-soft);letter-spacing:-.01em}
+.search{border-radius:999px!important;padding-left:18px!important}
+/* gates */
+.gate-card{border:2px solid var(--ink);border-radius:28px;box-shadow:6px 6px 0 var(--lilac);text-align:center;position:relative}
+.gate-card h1{font-size:40px;text-shadow:3px 3px 0 var(--accent-soft)}
+.gate-card .tagline{font-family:Nunito,system-ui,sans-serif;font-size:24px;color:var(--lilac);margin:-2px 0 18px;filter:saturate(1.4) brightness(.8)}
+.gate-card p{text-align:left}
+.gate-card .field{text-align:left}
+.gate-sticker{width:70px;height:70px;margin:-62px auto 6px;transform:rotate(-8deg)}
+.gate-sticker svg{width:100%;height:100%}
+.check{justify-content:flex-start}
+/* crumbs */
+.crumbs a{}
+.crumbs .here{font-weight:700;font-size:34px;text-shadow:3px 3px 0 var(--accent-soft)}
+.crumbs .sub{font-family:Nunito,system-ui,sans-serif;font-size:23px;color:#9a74b8}
+.crumbs .sep{color:var(--accent)}
+/* folders */
+.folders{gap:40px 30px}
+.folder{transition:transform .2s}
+.folder:hover{transform:translate(-2px,-3px) rotate(-1deg)}
+.folder .f-back{border:2.5px solid var(--ink);border-radius:8px 20px 20px 20px;box-shadow:none}
+.folder .f-back::before{border:2.5px solid var(--ink);border-bottom:0;left:-2.5px;top:calc(-11% - 1px);border-radius:14px 16px 0 0}
+.folder .paper{border:2px solid var(--ink);border-radius:9px;box-shadow:none}
+.folder .paper.lined{background:#fff repeating-linear-gradient(transparent 0 15px,#F2D6E0 15px 16.5px);background-position:0 8px}
+.folder .f-front{background:linear-gradient(165deg,var(--f) 10%,var(--f2) 130%);border:2.5px solid var(--ink);border-radius:12px 12px 20px 20px;box-shadow:5px 5px 0 var(--ink);color:var(--ink);overflow:visible}
+.folder.holo .f-front{background:linear-gradient(120deg,#FFC9DB 0%,#E6D0F7 30%,#CDEAF6 55%,#FBE7B0 80%,#FFC9DB 100%);background-size:220% 220%;animation:holo 6s ease-in-out infinite}
+.folder.holo .f-back,.folder.holo .f-back::before{background:#D9BFEA}
+@keyframes holo{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.folder .f-front::before{content:"";position:absolute;left:14px;top:12px;width:22%;height:7px;border-radius:999px;background:rgba(255,255,255,.75);transform:rotate(-3deg)}
+.folder .f-front::after{border:2px dashed rgba(42,31,61,.28);inset:8px;border-radius:9px 9px 13px 13px}
+.folder .f-name{font-weight:700;color:var(--ink);text-shadow:1.5px 1.5px 0 rgba(255,255,255,.7);font-size:22px}
+.folder .f-count{font-family:Nunito,system-ui,sans-serif;font-size:21px;font-weight:700;color:var(--ink);opacity:.8;margin-top:-2px}
+.folder .f-sticker{position:absolute;top:-22px;right:8px;width:56px;height:56px;transform:rotate(14deg);filter:drop-shadow(2px 3px 0 rgba(42,31,61,.18));transition:transform .3s cubic-bezier(.3,1.6,.5,1);z-index:2}
+.folder .f-sticker svg{width:100%;height:100%;display:block}
+.folder:hover .f-sticker{transform:rotate(-6deg) scale(1.12)}
+.folders.small .f-sticker{width:42px;height:42px;top:-16px}
+.folders.small .f-name{font-size:18px}
+.folders.small .f-count{font-size:18px}
+@media(max-width:600px){.folder .f-name,.folders.small .f-name{font-size:15px}.folder .f-count,.folders.small .f-count{font-size:17px}.folder .f-sticker,.folders.small .f-sticker{width:38px;height:38px;top:-14px;right:4px}.crumbs .here{font-size:27px}}
+/* filters + cards */
+.filters select{border:2px solid var(--line);border-radius:999px;background:#fff}
+.count{font-family:Nunito,system-ui,sans-serif;font-size:20px;color:#9a74b8}
+.card{border:2px solid var(--ink);border-radius:22px;box-shadow:5px 5px 0 var(--accent);transition:transform .15s}
+.card:hover{transform:translate(-2px,-2px) rotate(-.6deg)}
+.thumb{background:repeating-linear-gradient(45deg,#FFF0F5 0 10px,#FCE6EF 10px 20px);border-bottom:2px solid var(--ink)}
+.thumb .ph{opacity:1;width:56px;height:56px;display:block}
+.thumb .ph svg{width:100%;height:100%}
+.card-title{font-family:Caveat,cursive;font-weight:700;font-size:16px}
+.badge{border:1.5px solid var(--ink);background:#fff}
+.badge.knit{background:#FFD6E3;color:var(--ink)}.badge.crochet{background:#EDDFF8;color:var(--ink)}
+.badge.sewing{background:#DDF0F8;color:var(--ink)}.badge.other{background:#FBEBC0;color:var(--ink)}
+.badge.made{background:#DCEFCB;color:var(--ink)}
+.made-flag{border:1.5px solid var(--ink);background:#fff;color:var(--ink)}
+.empty h2{font-size:30px}
+.empty p{font-family:Nunito,system-ui,sans-serif;font-size:22px}
+/* modals */
+.overlay{background:rgba(42,31,61,.35)}
+.modal{border:2px solid var(--ink);border-radius:28px;box-shadow:7px 7px 0 var(--lilac)}
+.modal-head{border-bottom:2px dashed var(--line)}
+.modal-foot{border-top:2px dashed var(--line)}
+.modal-head h2{font-size:26px}
+.detail-cover{border:2px solid var(--ink);border-radius:18px}
+.section h3{font-size:20px}
+.section h3::after{content:"";display:block;width:70px;height:8px;margin-top:2px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 8'%3E%3Cpath d='M1 5 Q 9 0 17 4 T 34 4 T 51 4 T 69 3' fill='none' stroke='%23F49AB7' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat}
+.notes{background:var(--lilac-soft);border-radius:16px}
+.filerow{border:2px solid var(--line);border-radius:16px}
+.tag{background:var(--accent-soft);border:1.5px solid var(--ink)}
+.photo{border:2px solid var(--ink);border-radius:14px}
+fieldset{border:2px dashed var(--line);border-radius:18px}
+legend{font-weight:700}
+.drop{border:2px dashed var(--lilac);border-radius:16px;background:#fff;color:var(--muted)}
+.drop:hover{border-color:var(--accent);background:#FFF7FA}
+.toast{background:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--accent)}
+.busy{background:rgba(255,245,233,.9)}
+.spinner{border-color:var(--accent-soft);border-top-color:var(--accent)}
+@media(max-width:520px){.brand{font-size:21px}.top-actions .btn{padding:6px 11px}}
+
+/* type: handwriting for headings, rounded sans for everything else */
+h1,h2,h3,.brand,.crumbs,.crumbs .here,.card-title,.folder .f-name,legend,.modal-head h2,.section h3{font-family:Caveat,cursive;font-weight:700;letter-spacing:.01em}
+.brand{font-size:36px;line-height:1}
+.crumbs a{font-size:22px}
+.crumbs .here{font-size:46px;line-height:1.05}
+.crumbs .sub{font-size:15px;font-weight:700;color:#9a74b8;letter-spacing:.02em}
+.gate-card h1{font-size:54px;line-height:1}
+.gate-card .tagline{font-size:15px;font-weight:700;letter-spacing:.03em;margin:4px 0 20px}
+.folder .f-name{font-size:30px;line-height:1}
+.folders.small .f-name{font-size:25px}
+.folder .f-count{font-size:13px;font-weight:700;opacity:.75;margin-top:4px;letter-spacing:.02em}
+.folders.small .f-count{font-size:12px}
+.card-title{font-size:23px;line-height:1.05}
+.modal-head h2{font-size:36px;line-height:1}
+.section h3{font-size:27px}
+legend{font-size:23px}
+.empty h2{font-size:40px}
+.empty p{font-size:15px}
+.count{font-size:14px;font-weight:700}
+.btn{font-weight:700}
+@media(max-width:600px){.folder .f-name,.folders.small .f-name{font-size:22px}.folder .f-count,.folders.small .f-count{font-size:11.5px}.crumbs .here{font-size:38px}}
+@media(max-width:520px){.brand{font-size:28px}}
+.crumbs .title-sticker{display:inline-block;width:40px;height:40px;transform:rotate(12deg) translateY(4px);margin-left:4px}
+.crumbs .title-sticker svg{width:100%;height:100%}
+.badge.embroidery{background:#FFE3D8;color:var(--ink)}
+@media(max-width:600px){.crumbs .title-sticker{width:32px;height:32px}}
+.loose-label{font-size:32px;margin:34px 0 14px;text-shadow:2px 2px 0 var(--accent-soft)}
+.detail-side{display:flex;flex-direction:column;gap:16px;align-items:center}
+.detail-side .detail-cover{width:100%}
+.made-polaroid{background:#fff;border:2px solid var(--ink);border-radius:6px;padding:8px 8px 4px;width:150px;box-shadow:4px 4px 0 var(--lilac);transform:rotate(-4deg);cursor:zoom-in;transition:transform .2s}
+.made-polaroid:hover{transform:rotate(1deg) scale(1.04)}
+.made-polaroid .pol-img{display:block;aspect-ratio:1;background:repeating-linear-gradient(45deg,#FFF0F5 0 8px,#FCE6EF 8px 16px);overflow:hidden;border-radius:2px}
+.made-polaroid .pol-img img{width:100%;height:100%;object-fit:cover;display:block}
+.made-polaroid .pol-cap{display:block;font-family:Caveat,cursive;font-weight:700;font-size:21px;color:var(--ink);padding-top:2px}
+@media(max-width:600px){.detail-side{flex-direction:row;align-items:flex-start}.detail-side .detail-cover{flex:1}.made-polaroid{width:120px;flex:none;margin-top:10px}.made-polaroid .pol-cap{font-size:17px}}
 </style>
 </head>
 <body>
 
+<div class="decor" id="decor" aria-hidden="true"></div>
 <!-- Loading -->
 <div id="boot" class="gate"><div class="spinner"></div></div>
 
 <!-- Lock screen -->
 <div id="lock" class="gate hidden">
   <form class="gate-card" id="lockForm" autocomplete="on">
-    <div class="yarn">&#x1F9F6;</div>
-    <h1>Pattern Library</h1>
+    <div class="gate-sticker" data-sticker="butterfly"></div>
+    <h1>pattern library<span class="dot">.</span></h1>
+    <div class="tagline">all our patterns, all in one place</div>
     <p>Enter the library password to open your patterns.</p>
     <input type="text" name="username" value="pattern-library" autocomplete="username" class="hidden" aria-hidden="true">
     <div class="field"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required></div>
@@ -193,7 +343,7 @@ legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-siz
 <!-- First-time setup -->
 <div id="setup" class="gate hidden">
   <form class="gate-card" id="setupForm">
-    <div class="yarn">&#x1F9F6;</div>
+    <div class="gate-sticker" data-sticker="daisy"></div>
     <h1>Set up your library</h1>
     <p>This only happens once. Pick the password you and your sister will share. A short phrase of a few words is safest (for example: purple-yarn-tuesday-hats). Everything is locked with it, so write it down somewhere safe: it cannot be recovered.</p>
     <div class="field"><label for="spw">Library password</label><input id="spw" type="password" autocomplete="new-password" minlength="10" required></div>
@@ -208,7 +358,7 @@ legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-siz
 <!-- App -->
 <div id="app" class="hidden">
   <header class="top"><div class="top-inner">
-    <div class="brand">Pattern Library</div>
+    <div class="brand">pattern library<span class="dot">.</span></div>
     <input type="search" class="search" id="q" placeholder="Search name, designer, tag, yarn, notes...">
     <div class="top-actions">
       <button class="btn primary" id="addBtn">+ Add<span class="wide-only"> pattern</span></button>
@@ -224,7 +374,7 @@ legend{font-weight:600;padding:0 6px;font-family:Fraunces,Georgia,serif;font-siz
     </select>
     <span class="count" id="count"></span>
   </div>
-  <main><div class="folders" id="folders"></div><div class="grid" id="grid"></div><div class="empty hidden" id="empty"></div></main>
+  <main><div class="folders" id="folders"></div><h2 class="loose-label hidden" id="looseLabel">loose patterns</h2><div class="grid" id="grid"></div><div class="empty hidden" id="empty"></div></main>
 </div>
 
 <div id="modalRoot"></div>
@@ -258,17 +408,33 @@ const ON_PAGES = location.hostname.endsWith('.github.io');
 const ITERATIONS = 600000;
 const CHECK_TEXT = 'pattern-library-ok';
 
-const CRAFTS = ['Knit', 'Crochet', 'Sewing', 'Other'];
+const CRAFTS = ['Knit', 'Crochet', 'Sewing', 'Embroidery', 'Other'];
 const STATUSES = ['In progress', 'Made it'];
 const DONE_TAG = /completed$/i;
 const YARN_WEIGHTS = ['Lace', 'Fingering', 'Sport', 'DK', 'Worsted', 'Aran', 'Bulky', 'Super Bulky', 'Jumbo'];
 const CAT_SUGGEST = {
-  Knit: ['Sweater', 'Cardigan', 'Top', 'Hat', 'Scarf / Shawl', 'Socks', 'Mittens / Gloves', 'Blanket', 'Bag', 'Toy', 'Baby', 'Home', 'Accessory'],
-  Crochet: ['Sweater', 'Cardigan', 'Top', 'Hat', 'Scarf / Shawl', 'Blanket', 'Bag', 'Amigurumi', 'Baby', 'Home', 'Accessory'],
-  Sewing: ['Top', 'Dress', 'Skirt', 'Pants / Shorts', 'Jacket / Coat', 'Bag', 'Quilt', 'Kids', 'Home', 'Accessory'],
-  Other: ['Home', 'Accessory', 'Gift']
+  Embroidery: ['.pes files', 'hand embroidery', 'machine embroidery'],
+  Knit: ['sweaters & cardigans', 'tops', 'vests', 'hats & headbands', 'socks & slippers', 'mittens & gloves', 'scarves & shawls', 'pants & shorts', 'jackets & coats', 'baby & kids', 'pet clothes', 'home'],
+  Crochet: ['sweaters & cardigans', 'tops', 'vests', 'hats', 'granny squares', 'bags & pouches', 'blankets', 'amigurumi', 'socks & slippers', 'scarves & shawls', 'skirts', 'pants & shorts', 'baby & kids', 'pet clothes', 'filet charts', 'home', 'accessories'],
+  Sewing: ['tops', 'dresses', 'skirts', 'pants & shorts', 'swimsuits', 'rompers & sets', 'jackets & coats', 'bags & pouches', 'quilts', 'hats', 'baby & kids', 'home'],
+  Other: ['tatting', 'home', 'accessories']
 };
-const CRAFT_ICON = { Knit: '\u{1F9F6}', Crochet: '\u{1FAA1}', Sewing: '\u{1F9F5}', Other: '✂️' };
+// Old category names -> folder names (applied once to the library)
+const CAT_RENAME = {
+  'Top': 'tops', 'Sweater': 'sweaters & cardigans', 'Cardigan': 'sweaters & cardigans', 'Vest': 'vests', 'Hat': 'hats',
+  'Socks': 'socks & slippers', 'Slippers': 'socks & slippers', 'Mittens / Gloves': 'mittens & gloves', 'Scarf / Shawl': 'scarves & shawls',
+  'Pants / Shorts': 'pants & shorts', 'Skirt': 'skirts', 'Dress': 'dresses', 'Jacket / Coat': 'jackets & coats', 'Swimwear': 'swimsuits',
+  'Bag': 'bags & pouches', 'Quilt': 'quilts', 'Blanket': 'blankets', 'Granny square': 'granny squares', 'Amigurumi': 'amigurumi',
+  'Filet chart': 'filet charts', 'Home': 'home', 'Pet': 'pet clothes', 'Baby': 'baby & kids', 'Kids': 'baby & kids',
+  'Romper / Jumpsuit': 'rompers & sets', 'Sleepwear': 'rompers & sets', 'Tatting': 'tatting', 'Accessory': 'accessories', 'Toy': 'amigurumi'
+};
+const newCategory = p => {
+  const isHat = p.category === 'Hat' || (p.category === 'Baby' && /\bhat\b/i.test(p.title || ''));
+  if (p.craft === 'Knit' && (isHat || p.category === 'Accessory')) return 'hats & headbands';
+  if (isHat) return 'hats';
+  return CAT_RENAME[p.category];
+};
+const CRAFT_ICON = { Knit: '\u{1F9F6}', Crochet: '\u{1FAA1}', Sewing: '\u{1F9F5}', Other: '✂️', Embroidery: '\u{1FAA1}' };
 
 // ---------- State ----------
 const S = {
@@ -556,8 +722,22 @@ async function finishUnlock(key) {
   return true;
 }
 // "Want to make" is no longer used: clear it from any pattern that still has it.
+const isEmbroidery = p => p.craft === 'Other' && /embroidery/i.test(p.category || '') && (p.files || []).some(f => /\.(pes|zip|dst|jef|exp|hus|vp3)$/i.test(f.name));
 async function cleanUpStatuses() {
-  if (!S.token || !S.catalog.patterns.some(p => p.status === 'Want to make')) return;
+  if (!S.token) return;
+  if (S.catalog.patterns.some(isEmbroidery)) {
+    try {
+      await saveCatalog(c => c.patterns.forEach(p => { if (isEmbroidery(p)) { p.craft = 'Embroidery'; p.category = '.pes files'; } }), 'Move embroidery files');
+      render();
+    } catch {}
+  }
+  if (S.catalog.patterns.some(newCategory)) {
+    try {
+      await saveCatalog(c => c.patterns.forEach(p => { const n = newCategory(p); if (n) p.category = n; }), 'Sort patterns into folders');
+      render();
+    } catch {}
+  }
+  if (!S.catalog.patterns.some(p => p.status === 'Want to make')) return;
   try {
     await saveCatalog(c => c.patterns.forEach(p => { if (p.status === 'Want to make') p.status = ''; }), 'Clear Want to make status');
     render();
@@ -633,21 +813,31 @@ function coverThumbId(p) {
 }
 // ---------- Folders + routing ----------
 const FOLDERS = {
-  Knit:    { slug: 'knitting', name: 'Knitting Patterns', f: '#a7c4a0', f2: '#86a87f', icon: 'yarn' },
-  Crochet: { slug: 'crochet',  name: 'Crochet Patterns',  f: '#c4b0dd', f2: '#a48cc2', icon: 'hook' },
-  Sewing:  { slug: 'sewing',   name: 'Sewing Patterns',   f: '#a9c6e0', f2: '#86a8c9', icon: 'scissors' },
-  Other:   { slug: 'other',    name: 'Other Crafts',      f: '#e6c98b', f2: '#cdac67', icon: 'sparkle' }
+  Knit:    { slug: 'knitting', name: 'knitting patterns', f: '#FFD0E0', f2: '#F49AB7', sticker: 'daisy' },
+  Crochet: { slug: 'crochet',  name: 'crochet patterns',  f: '#EDDCFA', f2: '#C9A8E0', sticker: 'butterfly' },
+  Sewing:  { slug: 'sewing',   name: 'sewing patterns',   f: '#D8EFF9', f2: '#A8D5E8', sticker: 'star' },
+  Embroidery: { slug: 'embroidery', name: 'embroidery files', f: '#FFDCCD', f2: '#F4A98E', sticker: 'heart' },
+  Other:   { slug: 'other',    name: 'other crafts',      f: '#FBEBB9', f2: '#F0CC72', sticker: 'sparkle' }
 };
-const DONE_COLORS = { f: '#eab19c', f2: '#d48f77' };
-const ALL_COLORS = { f: '#d6c5ae', f2: '#bba58a' };
-const ICONS = {
-  yarn: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="15" cy="15" r="10"/><path d="M7 10c6 1 11 5 14 13M11 6c4 3 7 9 7 18M22 8c-5 1-12 7-14 15M26 26c2 1 4 0 4-2"/></svg>',
-  hook: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 28L24 7"/><path d="M24 7c1.5-2 4-1 3.6 1-.3 1.6-2.1 2-3.1 1.2"/><circle cx="9" cy="16" r="5"/><path d="M5 13c3 2 6 2 9 0"/></svg>',
-  scissors: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="24" r="4"/><circle cx="24" cy="24" r="4"/><path d="M11 21L25 4M21 21L7 4"/></svg>',
-  sparkle: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M16 3l3 9 9 3-9 3-3 10-3-10-9-3 9-3z"/><path d="M26 23l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"/></svg>',
-  heart: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M16 27S4 20 4 11.5A6.5 6.5 0 0 1 16 8a6.5 6.5 0 0 1 12 3.5C28 20 16 27 16 27z"/><path d="M11 15l4 4 7-7"/></svg>',
-  stack: '<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M16 4l12 6-12 6-12-6z"/><path d="M4 16l12 6 12-6M4 22l12 6 12-6"/></svg>'
+const DONE_COLORS = { f: '#E2F1D4', f2: '#B5D49F' };
+const ALL_COLORS = { f: '#EDDCFA', f2: '#C9A8E0', holo: true };
+const INK = '#2A1F3D';
+const STICKERS = {
+  daisy: `<svg viewBox="0 0 64 64"><g stroke="${INK}" stroke-width="2.5" fill="#fff">${[0,45,90,135,180,225,270,315].map(r => `<ellipse cx="32" cy="15" rx="8" ry="12" transform="rotate(${r} 32 32)"/>`).join('')}</g><circle cx="32" cy="32" r="9" fill="#F0CC72" stroke="${INK}" stroke-width="2.5"/><circle cx="29" cy="29" r="2.4" fill="#fff" opacity=".8"/></svg>`,
+  butterfly: `<svg viewBox="0 0 64 64" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"><path d="M31 30C25 12 8 8 7 18c-1 9 10 14 24 13z" fill="#F49AB7"/><path d="M33 30c6-18 23-22 24-12 1 9-10 14-24 13z" fill="#F49AB7"/><path d="M31 33c-12 0-20 7-17 13 3 7 13 2 17-11z" fill="#C9A8E0"/><path d="M33 33c12 0 20 7 17 13-3 7-13 2-17-11z" fill="#C9A8E0"/><path d="M32 22v26" stroke-linecap="round" stroke-width="4"/><path d="M31 21c-2-6-6-8-8-8M33 21c2-6 6-8 8-8" fill="none" stroke-linecap="round"/><circle cx="16" cy="18" r="3" fill="#fff" stroke="none"/><circle cx="48" cy="18" r="3" fill="#fff" stroke="none"/></svg>`,
+  star: `<svg viewBox="0 0 64 64"><path d="M32 5l8 17 19 2-14 13 4 19-17-9-17 9 4-19L5 24l19-2z" fill="#F0CC72" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 22l2-4" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`,
+  sparkle: `<svg viewBox="0 0 64 64" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"><path d="M28 4c2 14 6 18 20 20-14 2-18 6-20 20-2-14-6-18-20-20 14-2 18-6 20-20z" fill="#C9A8E0"/><path d="M50 36c1 7 3 9 10 10-7 1-9 3-10 10-1-7-3-9-10-10 7-1 9-3 10-10z" fill="#F49AB7"/></svg>`,
+  heart: `<svg viewBox="0 0 64 64"><path d="M32 56S7 41 7 23c0-9 7-15 14-15 5 0 9 3 11 7 2-4 6-7 11-7 7 0 14 6 14 15 0 18-25 33-25 33z" fill="#F49AB7" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/><path d="M17 20c1-3 3-5 6-5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>`,
+  yarn: `<svg viewBox="0 0 64 64" fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round"><circle cx="30" cy="30" r="20" fill="#F49AB7"/><path d="M14 20c10 1 22 11 28 26M20 12c8 6 15 19 15 36M42 14c-10 3-24 14-28 30"/><path d="M48 44c4 4 9 6 12 3"/></svg>`
 };
+const craftSticker = craft => STICKERS[(FOLDERS[craft] || FOLDERS.Other).sticker];
+function scatterDecor() {
+  const el = $('#decor'); if (!el || el.childElementCount) return;
+  const spots = [[2,34,26,'sparkle',-10],[93,10,30,'heart',12],[8,62,22,'star',8],[95,52,24,'daisy',-6],[2,88,30,'daisy',10],[88,86,26,'sparkle',-14],[48,4,18,'star',0],[70,94,20,'heart',-8]];
+  el.innerHTML = spots.map(([x,y,w,k,r], i) => `<span style="left:${x}%;top:${y}%;width:${w}px;height:${w}px;--r:${r}deg;animation-delay:${i * -0.9}s">${STICKERS[k]}</span>`).join('');
+  document.querySelectorAll('[data-sticker]').forEach(g => { g.innerHTML = STICKERS[g.dataset.sticker]; });
+}
+scatterDecor();
 const craftOf = p => FOLDERS[p.craft] ? p.craft : 'Other';
 const doneTags = () => uniqueSorted(S.catalog.patterns.flatMap(p => (p.tags || []).filter(t => DONE_TAG.test(t))));
 const titleCase = t => t.replace(/\b\w/g, c => c.toUpperCase());
@@ -664,16 +854,16 @@ function go(hash) { if (location.hash === hash || (!hash && !location.hash)) ren
 window.addEventListener('hashchange', () => { S.filter.q = ''; $('#q').value = ''; S.filter.status = ''; S.filter.designer = ''; render(); window.scrollTo(0, 0); });
 const catHash = (craft, cat) => `#/${FOLDERS[craft].slug}/${encodeURIComponent(cat)}`;
 
-function folderHTML({ hash, name, count, colors, icon, patterns }) {
+function folderHTML({ hash, name, count, colors, icon, sticker, patterns }) {
   const peeks = patterns.filter(coverThumbId).sort((a, b) => (b.updated || b.created || 0) - (a.updated || a.created || 0)).slice(0, 3);
   const papers = [2, 1, 0].map((k, i) => `<div class="paper p${i + 1} ${peeks[k] ? '' : 'lined'}" ${peeks[k] ? `data-thumb="${esc(coverThumbId(peeks[k]))}"` : ''}></div>`).join('');
-  return `<button class="folder" data-go="${esc(hash)}" style="--f:${colors.f};--f2:${colors.f2}" aria-label="${esc(name)}, ${count} patterns">
+  return `<button class="folder${colors.holo ? ' holo' : ''}" data-go="${esc(hash)}" style="--f:${colors.f};--f2:${colors.f2}" aria-label="${esc(name)}, ${count} patterns">
     <div class="f-back"></div><div class="f-papers">${papers}</div>
-    <div class="f-front"><span class="f-icon">${ICONS[icon]}</span><div class="f-name">${esc(name)}</div><div class="f-count">${count} pattern${count === 1 ? '' : 's'}</div></div></button>`;
+    <div class="f-front"><div class="f-name">${esc(name)}</div><div class="f-count">${count} pattern${count === 1 ? '' : 's'} ♡</div></div></button>`;
 }
-function crumbsHTML(trail, here, sub) {
+function crumbsHTML(trail, here, sub, sticker) {
   return trail.map(([label, hash]) => `<a href="${hash}">${esc(label)}</a><span class="sep">/</span>`).join('') +
-    `<span class="here">${esc(here)}</span>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}`;
+    `<span class="here">${esc(here)}</span>${sticker ? `<span class="title-sticker">${STICKERS[sticker]}</span>` : ''}${sub ? `<span class="sub">${esc(sub)}</span>` : ''}`;
 }
 let thumbObserver;
 function watchThumbs(root) {
@@ -690,7 +880,7 @@ function renderCards(list) {
     const craft = craftOf(p);
     const made = (p.photos || []).length;
     return `<button class="card" data-id="${esc(p.id)}">
-      <div class="thumb" data-thumb="${esc(coverThumbId(p) || '')}"><span class="ph">${CRAFT_ICON[craft]}</span>
+      <div class="thumb" data-thumb="${esc(coverThumbId(p) || '')}"><span class="ph">${craftSticker(craft)}</span>
         ${made ? `<span class="made-flag">${made} photo${made > 1 ? 's' : ''}</span>` : ''}</div>
       <div class="card-body"><div class="card-title">${esc(p.title)}</div>
       <div class="card-sub">${esc([p.designer, p.category].filter(Boolean).join(' · ') || ' ')}</div>
@@ -705,8 +895,8 @@ function render() {
   const all = S.catalog.patterns;
   const route = S.route = parseRoute();
   const folders = $('#folders'), grid = $('#grid'), empty = $('#empty'), crumbs = $('#crumbs'), filters = $('#filters');
-  folders.innerHTML = ''; grid.innerHTML = ''; empty.classList.add('hidden'); folders.className = 'folders';
-  const home = ['Library', '#/'];
+  folders.innerHTML = ''; grid.innerHTML = ''; empty.classList.add('hidden'); $('#looseLabel').classList.add('hidden'); folders.className = 'folders';
+  const home = ['library', '#/'];
   if (!all.length) {
     crumbs.innerHTML = crumbsHTML([], 'Pattern Library'); filters.classList.add('hidden');
     empty.classList.remove('hidden'); empty.innerHTML = '<h2>Your library is empty</h2><p>Add your first pattern with the button at the top.</p>';
@@ -714,7 +904,7 @@ function render() {
   }
   const q = S.filter.q.trim();
   // Work out which patterns are in view and whether to show folders or a list
-  let scope = all, trail = [], here = 'Pattern Library', sub = '', subfolders = null;
+  let scope = all, trail = [], here = 'pattern library', sub = '', subfolders = null, loose = [];
   if (route.craft) {
     const F = FOLDERS[route.craft];
     const inCraft = all.filter(p => craftOf(p) === route.craft);
@@ -724,37 +914,41 @@ function render() {
       if (!q) {
         const cats = {};
         inCraft.forEach(p => { const c = p.category || 'Uncategorized'; (cats[c] = cats[c] || []).push(p); });
-        subfolders = [folderHTML({ hash: catHash(route.craft, '*'), name: 'All ' + F.name.replace(' Patterns', '').toLowerCase(), count: inCraft.length, colors: F, icon: 'stack', patterns: inCraft }),
-          ...Object.keys(cats).sort((a, b) => (a === 'Uncategorized') - (b === 'Uncategorized') || a.localeCompare(b))
-            .map(c => folderHTML({ hash: catHash(route.craft, c), name: c, count: cats[c].length, colors: F, icon: F.icon, patterns: cats[c] }))];
+        loose = Object.keys(cats).filter(c => cats[c].length < 2).flatMap(c => cats[c]).sort((a, b) => a.title.localeCompare(b.title));
+        subfolders = [folderHTML({ hash: catHash(route.craft, '*'), name: 'everything', count: inCraft.length, colors: F, sticker: 'yarn', patterns: inCraft }),
+          ...Object.keys(cats).filter(c => cats[c].length >= 2).sort((a, b) => (a === 'Uncategorized') - (b === 'Uncategorized') || a.localeCompare(b))
+            .map(c => folderHTML({ hash: catHash(route.craft, c), name: c.toLowerCase(), count: cats[c].length, colors: F, sticker: F.sticker, patterns: cats[c] }))];
       }
     } else {
       trail = [home, [F.name, '#/' + F.slug]];
-      here = route.cat === '*' ? 'All ' + F.name.replace(' Patterns', '').toLowerCase() : route.cat;
+      here = route.cat === '*' ? 'everything' : route.cat.toLowerCase();
       scope = route.cat === '*' ? inCraft : inCraft.filter(p => (p.category || 'Uncategorized') === route.cat);
     }
   } else if (route.done !== undefined) {
-    trail = [home]; here = titleCase(route.done || 'Completed');
+    trail = [home]; here = route.done || 'completed';
     scope = all.filter(p => (p.tags || []).some(t => t.toLowerCase() === route.done.toLowerCase()));
   } else if (route.all) {
-    trail = [home]; here = 'All Patterns';
+    trail = [home]; here = 'all patterns';
   } else if (!q) {
-    sub = `${all.length} patterns, all in one cozy place`;
+    sub = `${all.length} patterns, all in one place \u2661`;
     subfolders = [
-      ...Object.keys(FOLDERS).map(k => ({ k, list: all.filter(p => craftOf(p) === k) })).filter(x => x.list.length || x.k !== 'Other')
-        .map(({ k, list }) => folderHTML({ hash: '#/' + FOLDERS[k].slug, name: FOLDERS[k].name, count: list.length, colors: FOLDERS[k], icon: FOLDERS[k].icon, patterns: list })),
-      ...doneTags().map(t => { const list = all.filter(p => (p.tags || []).includes(t)); return folderHTML({ hash: '#/done/' + encodeURIComponent(t), name: titleCase(t), count: list.length, colors: DONE_COLORS, icon: 'heart', patterns: list }); }),
-      folderHTML({ hash: '#/all', name: 'All Patterns', count: all.length, colors: ALL_COLORS, icon: 'stack', patterns: all })
+      ...Object.keys(FOLDERS).map(k => ({ k, list: all.filter(p => craftOf(p) === k) })).filter(x => x.list.length || !['Other', 'Embroidery'].includes(x.k))
+        .map(({ k, list }) => folderHTML({ hash: '#/' + FOLDERS[k].slug, name: FOLDERS[k].name, count: list.length, colors: FOLDERS[k], sticker: FOLDERS[k].sticker, patterns: list })),
+      ...doneTags().map(t => { const list = all.filter(p => (p.tags || []).includes(t)); return folderHTML({ hash: '#/done/' + encodeURIComponent(t), name: t, count: list.length, colors: DONE_COLORS, sticker: 'heart', patterns: list }); }),
+      folderHTML({ hash: '#/all', name: 'all patterns', count: all.length, colors: ALL_COLORS, sticker: 'yarn', patterns: all })
     ];
   }
-  if (q && route.home) here = 'Search';
-  crumbs.innerHTML = crumbsHTML(trail, here, subfolders ? sub : '');
+  if (q && route.home) here = 'search';
+  crumbs.innerHTML = crumbsHTML(trail, here, subfolders ? sub : '', route.craft ? FOLDERS[route.craft].sticker : route.done !== undefined ? 'heart' : route.all ? 'yarn' : 'butterfly');
   if (subfolders) {
     filters.classList.add('hidden');
     if (route.craft) folders.classList.add('small');
     folders.innerHTML = subfolders.join('');
     folders.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
     watchThumbs(folders);
+    const ll = $('#looseLabel');
+    ll.classList.toggle('hidden', !loose.length);
+    if (loose.length) renderCards(loose);
     return;
   }
   // List view
@@ -812,7 +1006,8 @@ function showDetail(id) {
     <div class="modal-head"><h2>${esc(p.title)}</h2><button class="x" data-close aria-label="Close">&times;</button></div>
     <div class="modal-body">
       <div class="detail-top">
-        <div class="detail-cover" id="dCover"><span class="ph" style="font-size:52px;opacity:.5">${CRAFT_ICON[craft] || CRAFT_ICON.Other}</span></div>
+        <div class="detail-side"><div class="detail-cover" id="dCover"><span class="ph" style="width:80px;height:80px;display:block">${craftSticker(craft)}</span></div>
+        ${p.cover && (p.photos || []).length ? `<button class="made-polaroid" id="dMade" title="See what I made"><span class="pol-img"></span><span class="pol-cap">what I made${p.photos.length > 1 ? ` (${p.photos.length})` : ''}</span></button>` : ''}</div>
         <div>
           <dl class="facts">${facts.map(([k, v, html]) => `<dt>${esc(k)}</dt><dd>${html || esc(v)}</dd>`).join('')}</dl>
           ${(p.tags || []).length ? `<div style="margin-top:14px">${p.tags.map(t => `<button class="tag" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
@@ -831,6 +1026,11 @@ function showDetail(id) {
   if (cid) {
     const full = p.cover ? p.cover.id : p.photos[0].id;
     vaultBlobURL(cid).then(url => { const box = m.querySelector('#dCover'); box.innerHTML = ''; const img = new Image(); img.src = url; img.style.cursor = 'zoom-in'; img.onclick = () => lightbox(full); box.appendChild(img); }).catch(() => {});
+  }
+  const pol = m.querySelector('#dMade');
+  if (pol) {
+    vaultBlobURL(p.photos[0].thumb).then(url => { const img = new Image(); img.src = url; img.alt = ''; pol.querySelector('.pol-img').appendChild(img); }).catch(() => {});
+    pol.onclick = () => lightbox(p.photos[0].id, p.photos[0].caption);
   }
   m.querySelectorAll('[data-thumb]').forEach(el => vaultBlobURL(el.dataset.thumb).then(url => { const img = new Image(); img.src = url; el.prepend(img); }).catch(() => {}));
   m.querySelectorAll('[data-ph]').forEach(el => el.onclick = () => { const ph = p.photos[+el.dataset.ph]; lightbox(ph.id, ph.caption); });
@@ -913,7 +1113,7 @@ function showEditor(id) {
 
   const syncCraft = () => {
     const c = q('#eCraft').value;
-    q('#yarnFs').classList.toggle('hidden', c === 'Sewing');
+    q('#yarnFs').classList.toggle('hidden', c === 'Sewing' || c === 'Embroidery');
     q('#fabricFs').classList.toggle('hidden', c === 'Knit' || c === 'Crochet');
     q('#catList').innerHTML = uniqueSorted([...(CAT_SUGGEST[c] || []), ...allCats]).map(x => `<option value="${esc(x)}">`).join('');
   };
@@ -974,8 +1174,8 @@ function showEditor(id) {
     Object.assign(p, {
       title, craft, category: val('#eCat'), designer: val('#eDesigner'), status: q('#eStatus').value, source: val('#eSource'),
       tags: uniqueSorted(val('#eTags').split(',').map(t => t.trim())), sizes: val('#eSizes'), notes: q('#eNotes').value.trim(),
-      yarnWeight: craft === 'Sewing' ? '' : q('#eWeight').value, yardage: craft === 'Sewing' ? '' : val('#eYardage'),
-      yarn: craft === 'Sewing' ? '' : val('#eYarn'), needles: craft === 'Sewing' ? '' : val('#eNeedles'),
+      yarnWeight: (craft === 'Sewing' || craft === 'Embroidery') ? '' : q('#eWeight').value, yardage: (craft === 'Sewing' || craft === 'Embroidery') ? '' : val('#eYardage'),
+      yarn: (craft === 'Sewing' || craft === 'Embroidery') ? '' : val('#eYarn'), needles: (craft === 'Sewing' || craft === 'Embroidery') ? '' : val('#eNeedles'),
       fabric: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eFabric'), fabricAmount: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eFabricAmt'),
       notions: craft === 'Knit' || craft === 'Crochet' ? '' : val('#eNotions')
     });
